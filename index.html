@@ -244,9 +244,8 @@
 </div>
 
 <script>
-// ── PON TU API KEY AQUÍ ──────────────────────
+
 const GROQ_API_KEY = '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';
-// ────────────────────────────────────────────
 
 const MANUAL = `
 MANUAL DE LUCES — IPUC CENTRAL CALI — DECOM 2026
@@ -408,7 +407,7 @@ function removeTyping() {
 }
 
 function parseResponse(text) {
-  // Detectar quick replies sugeridas por el modelo entre [[ ]]
+
   const qrMatch = text.match(/\[\[(.+?)\]\]/g);
   let quickReplies = null;
   let cleanText = text;
@@ -418,7 +417,7 @@ function parseResponse(text) {
     cleanText = text.replace(/\[\[.+?\]\]/g, '').trim();
   }
 
-  // Formato básico
+
   cleanText = cleanText
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
     .replace(/\*(.*?)\*/g, '<em>$1</em>')
@@ -494,7 +493,7 @@ inputEl.addEventListener('input', function () {
   this.style.height = Math.min(this.scrollHeight, 120) + 'px';
 });
 
-// Mensaje inicial con sugerencias
+
 addMessage('bot',
   '¡Hola! Soy el asistente técnico de luces de la <strong>IPUC Central Cali</strong>. 👋<br><br>Cuéntame qué está pasando y te ayudo a resolverlo.',
   initialSuggestions
