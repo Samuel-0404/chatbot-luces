@@ -18,8 +18,6 @@
     --text-muted: #6b7280;
     --danger: #ef4444;
     --success: #22c55e;
-    --radius: 12px;
-    --radius-sm: 8px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,7 +26,6 @@
     background: var(--bg);
     color: var(--text);
     font-family: 'DM Sans', sans-serif;
-    font-weight: 400;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -41,56 +38,40 @@
   body::before {
     content: '';
     position: fixed;
-    top: -30%;
-    left: 50%;
+    top: -30%; left: 50%;
     transform: translateX(-50%);
-    width: 600px;
-    height: 600px;
+    width: 600px; height: 600px;
     background: radial-gradient(circle, rgba(79,127,255,0.08) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
+    pointer-events: none; z-index: 0;
   }
 
   body::after {
     content: '';
     position: fixed;
-    bottom: -20%;
-    right: -10%;
-    width: 400px;
-    height: 400px;
+    bottom: -20%; right: -10%;
+    width: 400px; height: 400px;
     background: radial-gradient(circle, rgba(124,92,255,0.06) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
+    pointer-events: none; z-index: 0;
   }
 
   #app {
-    width: 100%;
-    max-width: 760px;
-    height: 100vh;
-    max-height: 780px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    z-index: 1;
+    width: 100%; max-width: 760px;
+    height: 100vh; max-height: 780px;
+    display: flex; flex-direction: column;
+    position: relative; z-index: 1;
     animation: fadeUp 0.5s ease;
   }
 
   .app-header {
-    display: flex;
-    align-items: center;
+    display: flex; align-items: center;
     justify-content: space-between;
     padding: 0 0 20px;
   }
 
-  .header-left {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
+  .header-left { display: flex; align-items: center; gap: 14px; }
 
   .logo {
-    width: 42px; height: 42px;
-    border-radius: 10px;
+    width: 42px; height: 42px; border-radius: 10px;
     background: linear-gradient(135deg, rgba(79,127,255,0.25), rgba(124,92,255,0.25));
     border: 1px solid rgba(79,127,255,0.3);
     display: flex; align-items: center; justify-content: center;
@@ -99,59 +80,34 @@
 
   .header-title h2 {
     font-family: 'DM Serif Display', serif;
-    font-size: 17px;
-    font-weight: 400;
-    color: var(--text);
+    font-size: 17px; font-weight: 400; color: var(--text);
   }
+  .header-title span { font-size: 12px; color: var(--text-muted); }
 
-  .header-title span {
-    font-size: 12px;
-    color: var(--text-muted);
-  }
+  .status-dot { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-muted); }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--success); animation: pulse 2s infinite; }
 
-  .status-dot {
-    display: flex; align-items: center; gap: 6px;
-    font-size: 12px; color: var(--text-muted);
-  }
-
-  .dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--success);
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
   .chat-wrap {
-    flex: 1;
-    background: var(--surface);
+    flex: 1; background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    display: flex; flex-direction: column; overflow: hidden;
   }
 
   #messages {
-    flex: 1;
-    overflow-y: auto;
+    flex: 1; overflow-y: auto;
     padding: 24px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+    display: flex; flex-direction: column; gap: 16px;
     scroll-behavior: smooth;
   }
 
   #messages::-webkit-scrollbar { width: 4px; }
-  #messages::-webkit-scrollbar-track { background: transparent; }
   #messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
   .msg {
-    display: flex;
-    gap: 10px;
+    display: flex; gap: 10px;
     animation: fadeUp 0.3s ease;
     max-width: 88%;
   }
@@ -164,112 +120,79 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 15px; flex-shrink: 0;
   }
-
   .msg.bot .msg-avatar {
     background: linear-gradient(135deg, rgba(79,127,255,0.2), rgba(124,92,255,0.2));
     border: 1px solid rgba(79,127,255,0.2);
   }
-
-  .msg.user .msg-avatar {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-  }
+  .msg.user .msg-avatar { background: var(--surface2); border: 1px solid var(--border); }
 
   .bubble {
-    padding: 12px 16px;
-    border-radius: 14px;
-    font-size: 14px;
-    line-height: 1.65;
+    padding: 12px 16px; border-radius: 14px;
+    font-size: 14px; line-height: 1.7;
   }
-
   .msg.bot .bubble {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-top-left-radius: 4px;
-    color: var(--text);
+    background: var(--surface2); border: 1px solid var(--border);
+    border-top-left-radius: 4px; color: var(--text);
   }
-
   .msg.user .bubble {
     background: linear-gradient(135deg, var(--accent), var(--accent2));
-    border-top-right-radius: 4px;
-    color: white;
+    border-top-right-radius: 4px; color: white;
   }
 
-  .bubble ol { padding-left: 18px; margin: 6px 0; }
-  .bubble ul { padding-left: 18px; margin: 6px 0; }
+  .bubble ol { padding-left: 20px; margin: 8px 0; }
+  .bubble ul { padding-left: 20px; margin: 8px 0; }
   .bubble li { margin: 5px 0; }
-  .bubble strong { color: var(--gold); font-weight: 500; }
-  .msg.user .bubble strong { color: rgba(255,255,255,0.9); }
-  .bubble br + br { display: block; margin: 4px 0; content: ''; }
+  .bubble strong { color: var(--gold); font-weight: 600; }
+  .msg.user .bubble strong { color: rgba(255,255,255,0.95); }
 
-  .suggestions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
+  /* Quick reply buttons */
+  .quick-replies {
+    display: flex; flex-wrap: wrap; gap: 7px;
     margin-top: 10px;
   }
 
-  .suggestion-btn {
-    padding: 6px 12px;
-    border: 1px solid rgba(79,127,255,0.3);
+  .qr-btn {
+    padding: 7px 14px;
+    border: 1px solid rgba(79,127,255,0.35);
     border-radius: 999px;
-    background: rgba(79,127,255,0.06);
+    background: rgba(79,127,255,0.07);
     color: var(--accent);
     font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    cursor: pointer;
+    font-size: 13px; cursor: pointer;
     transition: all 0.15s;
   }
-
-  .suggestion-btn:hover {
-    background: rgba(79,127,255,0.15);
-    border-color: rgba(79,127,255,0.5);
-  }
+  .qr-btn:hover { background: rgba(79,127,255,0.18); border-color: rgba(79,127,255,0.6); }
+  .qr-btn.used { opacity: 0.4; pointer-events: none; }
 
   .typing-dots {
     display: flex; align-items: center; gap: 4px;
     padding: 14px 16px;
   }
-
   .typing-dots span {
     width: 6px; height: 6px; border-radius: 50%;
-    background: var(--text-muted);
-    animation: bounce 1.2s infinite;
+    background: var(--text-muted); animation: bounce 1.2s infinite;
   }
   .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
   .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
 
-  @keyframes bounce {
-    0%, 80%, 100% { transform: translateY(0); opacity: 0.5; }
-    40% { transform: translateY(-6px); opacity: 1; }
-  }
+  @keyframes bounce { 0%,80%,100%{transform:translateY(0);opacity:0.5} 40%{transform:translateY(-6px);opacity:1} }
 
   .input-area {
     border-top: 1px solid var(--border);
     padding: 14px 16px;
-    display: flex;
-    align-items: flex-end;
-    gap: 10px;
+    display: flex; align-items: flex-end; gap: 10px;
     background: var(--surface);
   }
 
   #user-input {
-    flex: 1;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 11px 14px;
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    resize: none;
-    outline: none;
-    min-height: 42px;
-    max-height: 120px;
-    line-height: 1.5;
+    flex: 1; background: var(--surface2);
+    border: 1px solid var(--border); border-radius: 10px;
+    padding: 11px 14px; color: var(--text);
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    resize: none; outline: none;
+    min-height: 42px; max-height: 120px; line-height: 1.5;
     transition: border-color 0.2s;
   }
-
   #user-input:focus { border-color: rgba(79,127,255,0.4); }
   #user-input::placeholder { color: var(--text-muted); }
 
@@ -281,28 +204,20 @@
     font-size: 18px; flex-shrink: 0;
     transition: opacity 0.2s, transform 0.1s;
   }
-
   #send-btn:hover { opacity: 0.85; }
   #send-btn:active { transform: scale(0.95); }
   #send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
   .app-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between;
     padding: 12px 0 0;
   }
-
   .footer-note { font-size: 11px; color: var(--text-muted); }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
 </style>
 </head>
 <body>
-
 <div id="app">
   <div class="app-header">
     <div class="header-left">
@@ -312,10 +227,7 @@
         <span>IPUC Central Cali · Manual ADJ myDMX 3</span>
       </div>
     </div>
-    <div class="status-dot">
-      <div class="dot"></div>
-      En línea
-    </div>
+    <div class="status-dot"><div class="dot"></div>En línea</div>
   </div>
 
   <div class="chat-wrap">
@@ -340,97 +252,102 @@ const MANUAL = `
 MANUAL DE LUCES — IPUC CENTRAL CALI — DECOM 2026
 Aplicación: ADJ myDMX 3, archivo "SWITCH IPUC CENTRAL"
 
-1. INICIO DE APLICACIÓN
-- Dar doble click a la aplicación ADJ llamada "SWITCH IPUC CENTRAL".
-- Verificar que la interfaz USB diga "PC" y que la aplicación valide el dispositivo.
-- Si la interfaz no dice "PC" sino otro símbolo o número, el programa no la detectará.
+ENCENDIDO CORRECTO:
+1. Abrir la aplicación "SWITCH IPUC CENTRAL"
+2. Verificar que la cajita USB (interfaz) muestre "PC" en su pantalla
+3. En la aplicación, ir a LIVE
+4. Seleccionar la escena deseada
+5. Subir el DIMMER MAESTRO (barra derecha del programa)
+6. Verificar que en el panel solo FADE esté activo (blanco = activo, gris = inactivo)
 
-2. ENCENDIDO DE LUCES
-- Dar click en el apartado LIVE.
-- Seleccionar la escena deseada para el servicio.
-- Ajustar la intensidad con el DIMMER MAESTRO ubicado al lado derecho del programa.
-- Verificar que la única opción activa del panel sea FADE (blanco = activo, gris = inactivo).
+CREACIÓN DE ESCENA:
+1. Ir a EDIT
+2. Click en "+" en la sección MIX
+3. Configurar colores desde FADER o PALETTE (formato RGB)
+4. Subir DIMMER INDIVIDUAL de cada grupo (primera casilla en FADER)
+5. Ajustar color con barra deslizante (FADER) o punto (PALETTE)
+6. Repetir con cada modelo de luces
+7. Poner nombre descriptivo a la escena
+8. Guardar: ARCHIVO → GUARDAR (Ctrl+S)
+9. No usar efectos no autorizados — el ambiente debe ser reverente
 
-3. CREACIÓN DE ESCENA
-- Ir al apartado EDIT.
-- Seleccionar el botón "+" en la sección MIX para crear nueva escena.
-- Configurar colores desde el menú FADER o PALETTE (formato RGB).
-- Subir el DIMMER INDIVIDUAL de cada grupo de luces (primera casilla en FADER).
-- Ajustar colores con la barra deslizante (FADER) o seleccionando el punto (PALETTE).
-- Repetir con cada modelo de luces.
-- Asignar nombre descriptivo a la escena.
-- Guardar: ARCHIVO → GUARDAR (o Ctrl+S).
+FALLOS Y SOLUCIONES:
 
-4. FALLOS Y SOLUCIONES
+PROBLEMA: Luces no encienden
+- Causa 1: DIMMER MAESTRO no está subido → SOLUCIÓN: subirlo
+- Causa 2: En panel LIVE hay función activa diferente a FADE → SOLUCIÓN: desactivar todo excepto FADE
+- Causa 3: No hay escena seleccionada en LIVE → SOLUCIÓN: seleccionar una escena
+- Causa 4: Cajita USB no muestra "PC" → SOLUCIÓN: verificar físicamente la cajita
+- Causa 5: Cable XLR dañado (poco común) → SOLUCIÓN: reemplazar el cable XLR
 
-Fallo A — Error al crear escena nueva:
-- Causa: hay una escena activa en LIVE cuando se entra a EDIT.
-- Solución: desactivar la escena en LIVE antes de entrar a EDIT.
+PROBLEMA: Aplicación no detecta el dispositivo
+- Causa 1: Cajita USB no muestra "PC" → SOLUCIÓN: verificar que diga exactamente "PC"
+- Causa 2: Sistema desconectado del universo → SOLUCIÓN: EDITAR → PREFERENCIAS → DEVICES → SOFTWARE → UNIVERSO 1
 
-Fallo B — Sistema desconectado del universo de luces:
-- Solución: EDITAR → PREFERENCIAS → DEVICES → en columna SOFTWARE seleccionar UNIVERSO 1.
-
-Fallo C — Interfaz de luces no detectada:
-- Causa: la interfaz USB no muestra "PC".
-- Solución: verificar físicamente que la cajita USB muestre exactamente "PC".
-
-Fallo D — Luces no encienden (causa más común):
-- Causa: en el panel LIVE hay activa una función diferente a FADE.
-- Solución: verificar que solo FADE esté en blanco (activo). Desactivar cualquier otra función en blanco.
-
-Fallo E — Cable XLR dañado (poco común):
-- Causa: el cable XLR que conecta luces con la interfaz USB está dañado.
-- Solución: reemplazar el cable XLR.
+PROBLEMA: Error al crear escena nueva
+- Causa: Había escena activa en LIVE al entrar a EDIT → SOLUCIÓN: Salir de EDIT, desactivar escena en LIVE, volver a EDIT
 `;
 
-const SYSTEM_PROMPT = `Eres un técnico de soporte experto en el sistema de luces ADJ myDMX 3 de la IPUC Central Cali. Tu trabajo es diagnosticar y resolver problemas de forma conversacional, como lo haría un técnico por WhatsApp.
+const SYSTEM_PROMPT = `Eres un técnico de soporte experto y experimentado en el sistema de luces ADJ myDMX 3 de la IPUC Central Cali. Tu trabajo es ayudar a los voluntarios a resolver problemas de forma rápida y natural, como un técnico que responde por WhatsApp.
 
-ESTILO DE RESPUESTA:
-- Habla de forma natural, cercana y directa. Como si le escribieras a un compañero.
-- NUNCA digas "según el manual" ni mandes a la persona a leer nada.
-- NUNCA listes todas las causas posibles de golpe. Diagnostica de a una cosa a la vez.
-- Haz UNA sola pregunta de diagnóstico a la vez para ir descartando causas.
-- Cuando identifiques el problema, da la solución clara y en pasos numerados.
-- Si el problema se resuelve, confirma con el usuario.
-- Máximo 3-4 oraciones por mensaje. Sé conciso.
+FILOSOFÍA DE RESPUESTA — MUY IMPORTANTE:
+- Cuando alguien te confirma un problema (ej: "el dimmer no está subido"), DA LA SOLUCIÓN INMEDIATAMENTE. No sigas preguntando más cosas.
+- Solo haz UNA pregunta de seguimiento cuando genuinamente no sepas si el problema persiste tras dar la solución.
+- Si el usuario dice "sí" a algo que está mal → corrígelo ya.
+- Si el usuario dice "no" a algo que debería estar así → dile cómo arreglarlo ya.
+- Sé directo como un técnico real: "Súbelo y prueba. Si siguen sin encender, dime."
+- Máximo 3-4 oraciones por mensaje. Nunca seas verboso.
+- Habla de forma natural y cercana, sin tecnicismos innecesarios.
+- NUNCA menciones el manual ni mandes a buscar documentación.
+- NUNCA listes todas las causas posibles de golpe.
 
-LÓGICA DE DIAGNÓSTICO — sigue este orden según el problema:
+EJEMPLOS DE CÓMO RESPONDER:
 
-Si las luces NO ENCIENDEN, diagnostica en este orden:
-1. Primero pregunta: ¿El DIMMER MAESTRO (la barra de la derecha) está subido?
-2. Si sí → pregunta: ¿En el panel LIVE, la opción FADE está en blanco (activa)?
-3. Si sí → pregunta: ¿La cajita USB (interfaz) dice "PC" en su pantalla?
-4. Si sí → pregunta: ¿Hay una escena seleccionada en LIVE?
-5. Si todo está bien → sugiere revisar el cable XLR.
+Usuario: "No me prenden las luces"
+Tú: "¿El DIMMER MAESTRO (la barra del lado derecho) está subido?"
 
-Si la APLICACIÓN NO INICIA o no detecta el dispositivo:
-1. Primero pregunta: ¿La cajita USB dice "PC" en su pantalla?
-2. Si sí → pregunta: ¿La aplicación muestra el dispositivo myDMX 3 como conectado?
-3. Si no → guiar a reconectar el universo: EDITAR → PREFERENCIAS → DEVICES → UNIVERSO 1.
+Usuario: "No está subido"
+Tú: "Súbelo y prueba. ¿Prendieron?"  ← CORRECTO — solución inmediata, luego pregunta si funcionó
 
-Si hay problemas al CREAR UNA ESCENA:
-1. Primero pregunta: ¿Tenías una escena activa en LIVE cuando entraste a EDIT?
-2. Si sí → esa es la causa. Solución: salir de EDIT, desactivar la escena en LIVE, volver a EDIT.
+Usuario: "Sí ya prendieron"
+Tú: "Listo, era eso. Cualquier otra cosa me avisas 👍"
 
-INFORMACIÓN DEL MANUAL (úsala para dar soluciones, no para citarla):
+Usuario: "No, siguen sin prender"
+Tú: "Ok. En el panel LIVE, ¿hay algo activo diferente a FADE? Las opciones en blanco están activas, en gris desactivadas."
+
+LÓGICA DE DIAGNÓSTICO para luces que no encienden (en orden, pero reacciona a cada respuesta):
+1. ¿DIMMER MAESTRO subido? → Si no: dile que lo suba
+2. ¿Solo FADE activo en panel LIVE? → Si no: dile que desactive todo lo demás
+3. ¿Hay escena seleccionada en LIVE? → Si no: dile que seleccione una
+4. ¿La cajita USB dice "PC"? → Si no: dile que la revise físicamente
+5. Si todo está bien: sugiere revisar el cable XLR
+
+LÓGICA para aplicación que no detecta dispositivo:
+1. ¿La cajita USB dice "PC"? → Si no: verificar físicamente
+2. Si sí: guiar a reconectar universo (EDITAR → PREFERENCIAS → DEVICES → UNIVERSO 1)
+
+LÓGICA para error al crear escena:
+1. ¿Tenía escena activa en LIVE? → Si sí: salir de EDIT, apagar escena en LIVE, volver a EDIT
+
+MANUAL TÉCNICO (úsalo como referencia, no lo cites):
 ${MANUAL}
 
-Si el problema no está en el manual, dilo con honestidad y sugiere contactar directamente al equipo DECOM.`;
+Si el problema no está en el manual, dilo honestamente: "Eso no lo he visto antes, mejor llama directamente a alguien del equipo DECOM."`;
 
 const history = [];
 const messagesEl = document.getElementById('messages');
-const inputEl    = document.getElementById('user-input');
-const sendBtn    = document.getElementById('send-btn');
+const inputEl = document.getElementById('user-input');
+const sendBtn = document.getElementById('send-btn');
 
-const suggestions = [
+const initialSuggestions = [
   'Las luces no encienden',
-  'La aplicación no detecta el dispositivo',
+  'La app no detecta el dispositivo',
   'No puedo crear una escena',
-  '¿Cómo enciendo las luces?',
+  '¿Cómo enciendo las luces paso a paso?',
   '¿Cómo creo una escena nueva?'
 ];
 
-function addMessage(role, html, withSuggestions = false) {
+function addMessage(role, html, quickReplies = null) {
   const wrap = document.createElement('div');
   wrap.className = `msg ${role}`;
 
@@ -442,20 +359,25 @@ function addMessage(role, html, withSuggestions = false) {
   bub.className = 'bubble';
   bub.innerHTML = html;
 
-  if (withSuggestions) {
+  if (quickReplies && quickReplies.length > 0) {
     const col = document.createElement('div');
     col.style.cssText = 'display:flex;flex-direction:column;gap:8px;';
     col.appendChild(bub);
-    const sg = document.createElement('div');
-    sg.className = 'suggestions';
-    suggestions.forEach(s => {
+
+    const qr = document.createElement('div');
+    qr.className = 'quick-replies';
+    quickReplies.forEach(label => {
       const btn = document.createElement('button');
-      btn.className = 'suggestion-btn';
-      btn.textContent = s;
-      btn.onclick = () => send(s);
-      sg.appendChild(btn);
+      btn.className = 'qr-btn';
+      btn.textContent = label;
+      btn.onclick = () => {
+        // Deshabilitar todos los botones del grupo
+        qr.querySelectorAll('.qr-btn').forEach(b => b.classList.add('used'));
+        send(label);
+      };
+      qr.appendChild(btn);
     });
-    col.appendChild(sg);
+    col.appendChild(qr);
     wrap.appendChild(av);
     wrap.appendChild(col);
   } else {
@@ -469,16 +391,13 @@ function addMessage(role, html, withSuggestions = false) {
 
 function showTyping() {
   const wrap = document.createElement('div');
-  wrap.className = 'msg bot';
-  wrap.id = 'typing';
+  wrap.className = 'msg bot'; wrap.id = 'typing';
   const av = document.createElement('div');
-  av.className = 'msg-avatar';
-  av.textContent = '💡';
+  av.className = 'msg-avatar'; av.textContent = '💡';
   const bub = document.createElement('div');
   bub.className = 'bubble typing-dots';
   bub.innerHTML = '<span></span><span></span><span></span>';
-  wrap.appendChild(av);
-  wrap.appendChild(bub);
+  wrap.appendChild(av); wrap.appendChild(bub);
   messagesEl.appendChild(wrap);
   messagesEl.scrollTop = messagesEl.scrollHeight;
 }
@@ -488,8 +407,19 @@ function removeTyping() {
   if (t) t.remove();
 }
 
-function formatResponse(text) {
-  return text
+function parseResponse(text) {
+  // Detectar quick replies sugeridas por el modelo entre [[ ]]
+  const qrMatch = text.match(/\[\[(.+?)\]\]/g);
+  let quickReplies = null;
+  let cleanText = text;
+
+  if (qrMatch) {
+    quickReplies = qrMatch.map(m => m.replace(/\[\[|\]\]/g, '').trim());
+    cleanText = text.replace(/\[\[.+?\]\]/g, '').trim();
+  }
+
+  // Formato básico
+  cleanText = cleanText
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
     .replace(/\*(.*?)\*/g, '<em>$1</em>')
     .replace(/^(\d+)\.\s(.+)$/gm, '<li>$2</li>')
@@ -497,6 +427,8 @@ function formatResponse(text) {
     .replace(/^[-•]\s(.+)$/gm, '<li>$1</li>')
     .replace(/\n\n/g, '<br><br>')
     .replace(/\n/g, '<br>');
+
+  return { html: cleanText, quickReplies };
 }
 
 async function send(text) {
@@ -518,16 +450,14 @@ async function send(text) {
       },
       body: JSON.stringify({
         model: 'llama-3.1-8b-instant',
-        max_tokens: 400,
-        temperature: 0.4,
+        max_tokens: 350,
+        temperature: 0.25,
         messages: [
           { role: 'system', content: SYSTEM_PROMPT },
           ...history
         ]
       })
     });
-
-    const data = await res.json();
 
     if (res.status === 401) {
       removeTyping();
@@ -536,10 +466,13 @@ async function send(text) {
       return;
     }
 
+    const data = await res.json();
     const reply = data.choices?.[0]?.message?.content || 'No pude obtener respuesta. Intenta de nuevo.';
     history.push({ role: 'assistant', content: reply });
+
     removeTyping();
-    addMessage('bot', formatResponse(reply));
+    const { html, quickReplies } = parseResponse(reply);
+    addMessage('bot', html, quickReplies);
 
   } catch (e) {
     removeTyping();
@@ -556,15 +489,15 @@ inputEl.addEventListener('keydown', e => {
   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
 });
 
-inputEl.addEventListener('input', function() {
+inputEl.addEventListener('input', function () {
   this.style.height = 'auto';
   this.style.height = Math.min(this.scrollHeight, 120) + 'px';
 });
 
-// Mensaje inicial
+// Mensaje inicial con sugerencias
 addMessage('bot',
   '¡Hola! Soy el asistente técnico de luces de la <strong>IPUC Central Cali</strong>. 👋<br><br>Cuéntame qué está pasando y te ayudo a resolverlo.',
-  true
+  initialSuggestions
 );
 </script>
 </body>
