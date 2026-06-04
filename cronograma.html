@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>Cronograma · DECOM · IPUC Central Cali</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --surface2: #1a1e28;
+    --border: rgba(255,255,255,0.07);
+    --accent: #4f7fff;
+    --accent2: #7c5cff;
+    --gold: #f0c060;
+    --text: #e8eaf0;
+    --text-muted: #6b7280;
+    --success: #22c55e;
+    --teal: #0d9488;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ── NAVBAR ── */
+  .navbar {
+    position: fixed; top: 0; left: 0; right: 0; height: 56px;
+    z-index: 100;
+    background: rgba(13,15,20,0.94);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center;
+    padding: 0 24px; justify-content: space-between;
+  }
+  .nav-brand { display: flex; align-items: center; gap: 10px; }
+  .nav-brand-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: linear-gradient(135deg, rgba(79,127,255,0.25), rgba(124,92,255,0.25));
+    border: 1px solid rgba(79,127,255,0.3);
+    display: flex; align-items: center; justify-content: center; font-size: 16px;
+  }
+  .nav-brand-text { display: flex; flex-direction: column; line-height: 1.2; }
+  .nav-brand-text strong { font-size: 14px; font-weight: 600; color: var(--text); letter-spacing: 0.06em; }
+  .nav-brand-text small { font-size: 10px; color: var(--text-muted); }
+  .nav-links { display: flex; align-items: center; gap: 4px; }
+  .nav-link {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 8px;
+    font-size: 13px; font-weight: 500; color: var(--text-muted);
+    text-decoration: none; transition: all 0.15s;
+    border: 1px solid transparent;
+  }
+  .nav-link:hover { color: var(--text); background: var(--surface2); }
+  .nav-link.active {
+    color: var(--text);
+    background: linear-gradient(135deg, rgba(79,127,255,0.15), rgba(124,92,255,0.15));
+    border-color: rgba(79,127,255,0.25);
+  }
+
+  /* ── PAGE ── */
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 76px 24px 40px;
+  }
+  body::before {
+    content: '';
+    position: fixed; top: -20%; right: -10%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(13,148,136,0.06) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+
+  .page-content {
+    max-width: 1100px; margin: 0 auto;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.4s ease;
+  }
+
+  /* ── SETUP CARD ── */
+  .setup-card {
+    background: var(--surface);
+    border: 1px solid rgba(240,192,96,0.3);
+    border-radius: 16px; padding: 28px 32px;
+    margin-bottom: 24px; display: none;
+  }
+  .setup-card.visible { display: block; }
+  .setup-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px; font-weight: 400; color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .setup-steps { display: flex; flex-direction: column; gap: 10px; }
+  .setup-step {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 13px; color: var(--text-muted); line-height: 1.6;
+  }
+  .setup-num {
+    min-width: 22px; height: 22px; border-radius: 50%;
+    background: rgba(240,192,96,0.15); border: 1px solid rgba(240,192,96,0.3);
+    color: var(--gold); font-size: 11px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center; margin-top: 1px;
+  }
+  .setup-step code {
+    background: var(--surface2); border: 1px solid var(--border);
+    padding: 1px 7px; border-radius: 4px; font-family: monospace;
+    font-size: 12px; color: var(--text); white-space: nowrap;
+  }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    display: flex; align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 24px; flex-wrap: wrap; gap: 16px;
+  }
+  .month-label {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px; font-weight: 400; color: var(--text);
+    line-height: 1.1; margin-bottom: 4px;
+  }
+  .month-sub { font-size: 13px; color: var(--text-muted); }
+
+  .header-right { display: flex; align-items: center; gap: 10px; }
+  .refresh-btn {
+    display: flex; align-items: center; gap: 6px;
+    padding: 8px 16px; border-radius: 8px;
+    background: var(--surface2); border: 1px solid var(--border);
+    color: var(--text-muted); font-size: 13px; font-weight: 500;
+    cursor: pointer; transition: all 0.15s; font-family: 'DM Sans', sans-serif;
+  }
+  .refresh-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.15); }
+  .refresh-btn.spinning .btn-icon { animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .last-update { font-size: 11px; color: var(--text-muted); }
+
+  /* ── STATS ROW ── */
+  .stats-row {
+    display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border); border-radius: 10px;
+    padding: 12px 18px;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .stat-val { font-size: 22px; font-weight: 600; color: var(--text); }
+  .stat-lbl { font-size: 11px; color: var(--text-muted); }
+  .stat-today .stat-val { color: var(--gold); }
+
+  /* ── TABLE ── */
+  .table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border); border-radius: 16px;
+    overflow: hidden;
+  }
+  .table-scroll { overflow-x: auto; }
+
+  table {
+    width: 100%; border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead tr {
+    background: linear-gradient(135deg, #0d6e6b, #0d9488);
+  }
+  thead th {
+    padding: 13px 14px;
+    text-align: left; font-weight: 600;
+    color: #ccfbf1; font-size: 12px;
+    letter-spacing: 0.03em; white-space: nowrap;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  thead th:first-child { border-radius: 0; padding-left: 16px; }
+
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.12s;
+  }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: rgba(255,255,255,0.025); }
+
+  tbody tr.row-today {
+    background: rgba(240,192,96,0.07);
+    border-left: 3px solid var(--gold);
+  }
+  tbody tr.row-today:hover { background: rgba(240,192,96,0.1); }
+
+  td {
+    padding: 11px 14px; color: var(--text);
+    vertical-align: middle; white-space: nowrap;
+  }
+  td:first-child { padding-left: 16px; }
+  td.empty { color: var(--text-muted); }
+
+  /* Day badge */
+  .day-badge {
+    display: inline-flex; align-items: center;
+    padding: 3px 10px; border-radius: 999px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+  }
+  .day-MARTES  { background: rgba(79,127,255,0.15); color: #7eb8ff; }
+  .day-JUEVES  { background: rgba(13,148,136,0.15); color: #5eead4; }
+  .day-VIERNES { background: rgba(124,92,255,0.15); color: #b89aff; }
+  .day-SABADO,
+  .day-SÁBADO  { background: rgba(249,115,22,0.15); color: #fb923c; }
+  .day-DOMINGO { background: rgba(239,68,68,0.15);  color: #f87171; }
+
+  /* Today marker */
+  .today-tag {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 2px 8px; border-radius: 999px;
+    background: rgba(240,192,96,0.2); border: 1px solid rgba(240,192,96,0.4);
+    color: var(--gold); font-size: 10px; font-weight: 600;
+    margin-left: 8px; letter-spacing: 0.05em;
+  }
+
+  /* ── STATES ── */
+  .state-box {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 64px 24px; gap: 14px; text-align: center;
+  }
+  .state-icon { font-size: 40px; opacity: 0.5; }
+  .state-title { font-size: 16px; font-weight: 500; color: var(--text); }
+  .state-msg { font-size: 13px; color: var(--text-muted); max-width: 380px; line-height: 1.6; }
+
+  .spinner {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 3px solid var(--border);
+    border-top-color: var(--teal);
+    animation: spin 0.8s linear infinite;
+  }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    margin-top: 16px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 8px;
+  }
+  .footer-note { font-size: 11px; color: var(--text-muted); }
+  .footer-sheet-link {
+    font-size: 11px; color: var(--text-muted);
+    text-decoration: none; display: flex; align-items: center; gap: 4px;
+  }
+  .footer-sheet-link:hover { color: var(--text); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .stats-row { display: none; }
+    .month-label { font-size: 24px; }
+  }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-brand">
+    <div class="nav-brand-icon">⚙️</div>
+    <div class="nav-brand-text">
+      <strong>DECOM</strong>
+      <small>IPUC Central Cali</small>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="index.html"      class="nav-link">💬 Asistente</a>
+    <a href="manuales.html"   class="nav-link">📋 Manuales</a>
+    <a href="cronograma.html" class="nav-link active">📅 Cronograma</a>
+  </div>
+</nav>
+
+<div class="page-content">
+
+  <!-- Setup guide (shown when Sheet ID is missing) -->
+  <div id="setup-card" class="setup-card">
+    <h3>⚙️ Configuración requerida</h3>
+    <div class="setup-steps">
+      <div class="setup-step">
+        <div class="setup-num">1</div>
+        <span>Abre el archivo <code>cronograma.html</code> en un editor de texto y busca la línea <code>SHEET_ID: ''</code></span>
+      </div>
+      <div class="setup-step">
+        <div class="setup-num">2</div>
+        <span>Ve a tu Google Sheet y copia el ID de la URL:<br>
+        <code>docs.google.com/spreadsheets/d/<strong style="color:var(--gold)">ESTE_ES_EL_ID</strong>/edit</code></span>
+      </div>
+      <div class="setup-step">
+        <div class="setup-num">3</div>
+        <span>Pega el ID entre las comillas: <code>SHEET_ID: 'pega_aquí_el_id'</code></span>
+      </div>
+      <div class="setup-step">
+        <div class="setup-num">4</div>
+        <span>Escribe el nombre exacto de la pestaña en <code>SHEET_NAME: 'nombre_pestaña'</code></span>
+      </div>
+      <div class="setup-step">
+        <div class="setup-num">5</div>
+        <span>En Google Sheets: <strong>Compartir → Cualquier persona con el enlace → Lector</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="header-left">
+      <div class="month-label" id="month-label">Cronograma</div>
+      <div class="month-sub" id="month-sub">Departamento de Comunicaciones · IPUC Central Cali</div>
+    </div>
+    <div class="header-right">
+      <span class="last-update" id="last-update"></span>
+      <button class="refresh-btn" id="refresh-btn" onclick="loadCronograma()">
+        <span class="btn-icon">↻</span> Actualizar
+      </button>
+    </div>
+  </div>
+
+  <!-- Stats row -->
+  <div class="stats-row" id="stats-row" style="display:none"></div>
+
+  <!-- Table container -->
+  <div class="table-wrap">
+    <div id="table-container">
+      <div class="state-box">
+        <div class="spinner"></div>
+        <div class="state-title">Cargando cronograma...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <span class="footer-note">Cronograma mensual · DECOM 2026</span>
+    <a id="sheet-link" href="#" target="_blank" class="footer-sheet-link" style="display:none">
+      ↗ Ver en Google Sheets
+    </a>
+  </div>
+
+</div>
+
+<script>
+// ── CONFIGURACIÓN ────────────────────────────────────────────────────────────
+const CONFIG = {
+  // URL del Apps Script desplegado (ver instrucciones en README o abajo)
+  // Ejemplo: 'https://script.google.com/macros/s/AKfy.../exec'
+  APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzrSOZAeazpJpmaOLq3x1eeNQX4LMfNAgK9qGqMNGYoN-QVK1WTNQUkKjec3CvRkvhk/exec',
+
+  // Solo se usa si APPS_SCRIPT_URL está vacío (fallback script injection)
+  SHEET_ID:   '1cZOxQGNvj0Tkj615uF38xrSlvOIdy4sruD-9qNQH9nk',
+  SHEET_NAME: 'IMPRIMIBLE',
+  SHEET_GID:  '1414634577',
+};
+// ─────────────────────────────────────────────────────────────────────────────
+
+const VALID_DAYS = ['MARTES','JUEVES','VIERNES','SÁBADO','SABADO','DOMINGO'];
+
+const MONTHS_ES = [
+  'Enero','Febrero','Marzo','Abril','Mayo','Junio',
+  'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'
+];
+
+function todayStr() {
+  const now = new Date();
+  const d = String(now.getDate()).padStart(2,'0');
+  const m = String(now.getMonth()+1).padStart(2,'0');
+  const y = now.getFullYear();
+  return `${d}-${m}-${y}`;
+}
+
+// Normalizes any date representation from gviz/tq to DD-MM-YYYY
+function normDate(raw) {
+  if (!raw) return '';
+  const s = String(raw);
+
+  // Google Sheets Date object: Date(2026,5,2) — month is 0-indexed
+  const gd = s.match(/^Date\((\d+),(\d+),(\d+)\)$/);
+  if (gd) {
+    const [,y,m,d] = gd;
+    return `${String(d).padStart(2,'0')}-${String(+m+1).padStart(2,'0')}-${y}`;
+  }
+  // Already DD-MM-YYYY or similar text
+  return s.trim();
+}
+
+// Método A: Apps Script con fetch() — funciona desde file://, localhost y cualquier hosting
+async function fetchViaAppsScript() {
+  const res = await fetch(CONFIG.APPS_SCRIPT_URL);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const json = await res.json();
+  // Convierte { headers, rows } al formato de tabla gviz
+  const cols = json.headers.map((label, i) => ({ id: String.fromCharCode(65 + i), label: String(label) }));
+  const rows = json.rows.map(r => ({
+    c: r.map(v => ({ v: v != null ? String(v) : null, f: v != null ? String(v) : null }))
+  }));
+  return { cols, rows };
+}
+
+// Método B: Script injection gviz — no requiere setup extra pero puede fallar en algunos navegadores
+function fetchViaGviz() {
+  return new Promise((resolve, reject) => {
+    let settled = false;
+    function done(fn) {
+      if (settled) return; settled = true;
+      clearTimeout(timer);
+      document.getElementById('gviz-script')?.remove();
+      fn();
+    }
+    const timer = setTimeout(() => done(() => reject(new Error(
+      'Google Sheets no respondió en 10s. Configura APPS_SCRIPT_URL para mayor fiabilidad.'
+    ))), 10000);
+
+    if (!window.google) window.google = {};
+    if (!window.google.visualization) window.google.visualization = {};
+    if (!window.google.visualization.Query) window.google.visualization.Query = {};
+    window.google.visualization.Query.setResponse = function(data) {
+      done(() => data.status === 'error'
+        ? reject(new Error(data.errors?.[0]?.detailed_message || 'Error de Google Sheets'))
+        : resolve(data.table));
+    };
+
+    document.getElementById('gviz-script')?.remove();
+    const sheetParam = CONFIG.SHEET_GID
+      ? `gid=${CONFIG.SHEET_GID}`
+      : `sheet=${encodeURIComponent(CONFIG.SHEET_NAME)}`;
+    const script = document.createElement('script');
+    script.id = 'gviz-script';
+    script.src = `https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}/gviz/tq?tqx=out:json&${sheetParam}`;
+    script.onerror = () => done(() => reject(new Error('No se pudo cargar el script de Google Sheets.')));
+    document.head.appendChild(script);
+  });
+}
+
+async function fetchSheet() {
+  if (CONFIG.APPS_SCRIPT_URL) return fetchViaAppsScript();
+  return fetchViaGviz();
+}
+
+function parseTable(table) {
+  // Usamos SOLO el label real (sin fallback al id) para detectar columnas vacías
+  const labels = table.cols.map(c => (c.label || '').trim());
+  const cols   = table.cols.map(c => c.label || c.id || '');
+
+  const rows = (table.rows || []).map(row =>
+    (row.c || []).map(cell => {
+      if (!cell || cell.v === null || cell.v === undefined) return '';
+      return cell.f ?? String(cell.v);
+    })
+  );
+
+  // Salta columnas iniciales sin label (ej: columna A vacía del Sheet)
+  const start = labels.findIndex(label => label !== '');
+  if (start > 0) {
+    return { cols: cols.slice(start), rows: rows.map(r => r.slice(start)) };
+  }
+  return { cols, rows };
+}
+
+function filterRows(rows) {
+  return rows.filter(row => {
+    const day = (row[0] || '').toString().trim().toUpperCase();
+    return VALID_DAYS.includes(day);
+  });
+}
+
+function getMonthInfo(rows) {
+  for (const row of rows) {
+    const date = normDate(row[1]);
+    const parts = date.match(/^(\d{2})-(\d{2})-(\d{4})$/);
+    if (parts) {
+      return { month: +parts[2] - 1, year: +parts[3] };
+    }
+  }
+  const now = new Date();
+  return { month: now.getMonth(), year: now.getFullYear() };
+}
+
+function buildStats(rows) {
+  const today = todayStr();
+  const total = rows.length;
+  const todayRow = rows.findIndex(r => normDate(r[1]) === today);
+
+  return { total, todayIdx: todayRow };
+}
+
+function buildTable(cols, rows) {
+  const today = todayStr();
+  const container = document.getElementById('table-container');
+
+  const scroll = document.createElement('div');
+  scroll.className = 'table-scroll';
+
+  const tbl = document.createElement('table');
+
+  // ── Header ──
+  const thead = document.createElement('thead');
+  const hrow = document.createElement('tr');
+  cols.forEach(label => {
+    const th = document.createElement('th');
+    th.textContent = label;
+    hrow.appendChild(th);
+  });
+  thead.appendChild(hrow);
+  tbl.appendChild(thead);
+
+  // ── Body ──
+  const tbody = document.createElement('tbody');
+  rows.forEach(row => {
+    const dateVal = normDate(row[1]);
+    const isToday = dateVal === today;
+
+    const tr = document.createElement('tr');
+    if (isToday) tr.classList.add('row-today');
+
+    row.forEach((cell, i) => {
+      const td = document.createElement('td');
+
+      if (i === 0) {
+        // Day column → badge
+        const dayUpper = (cell || '').toString().trim().toUpperCase().replace('Á','A');
+        const badge = document.createElement('span');
+        badge.className = `day-badge day-${dayUpper}`;
+        badge.textContent = (cell || '').toString().trim().toUpperCase();
+        td.appendChild(badge);
+
+        if (isToday) {
+          const tag = document.createElement('span');
+          tag.className = 'today-tag';
+          tag.textContent = '● HOY';
+          td.appendChild(tag);
+        }
+      } else {
+        const val = cell?.toString().trim() || '';
+        td.textContent = val;
+        if (!val) td.classList.add('empty');
+      }
+
+      tr.appendChild(td);
+    });
+
+    tbody.appendChild(tr);
+  });
+  tbl.appendChild(tbody);
+
+  scroll.appendChild(tbl);
+  container.innerHTML = '';
+  container.appendChild(scroll);
+}
+
+function buildStatsUI(rows) {
+  const today = todayStr();
+  const total = rows.length;
+  const todayRow = rows.find(r => normDate(r[1]) === today);
+
+  const statsEl = document.getElementById('stats-row');
+  statsEl.style.display = 'flex';
+
+  const items = [
+    { val: total, lbl: 'servicios este mes', cls: '' },
+  ];
+
+  if (todayRow) {
+    // Find the primary role person for today (first non-empty after Supervisor)
+    const lider = (todayRow[3] || '').trim();
+    items.push({ val: lider || '—', lbl: 'líder transmisión hoy', cls: 'stat-today' });
+  }
+
+  statsEl.innerHTML = items.map(i =>
+    `<div class="stat-card ${i.cls}">
+      <span class="stat-val">${i.val}</span>
+      <span class="stat-lbl">${i.lbl}</span>
+    </div>`
+  ).join('');
+}
+
+function showError(msg) {
+  document.getElementById('table-container').innerHTML = `
+    <div class="state-box">
+      <div class="state-icon">⚠️</div>
+      <div class="state-title">No se pudo cargar el cronograma</div>
+      <div class="state-msg">${msg}</div>
+    </div>`;
+}
+
+async function loadCronograma() {
+  if (!CONFIG.SHEET_ID.trim()) {
+    document.getElementById('setup-card').classList.add('visible');
+    document.getElementById('table-container').innerHTML = `
+      <div class="state-box">
+        <div class="state-icon">📋</div>
+        <div class="state-title">Falta la configuración</div>
+        <div class="state-msg">Sigue los pasos de arriba para conectar el Google Sheet.</div>
+      </div>`;
+    return;
+  }
+
+  // Start loading
+  const btn = document.getElementById('refresh-btn');
+  btn.classList.add('spinning');
+  btn.disabled = true;
+
+  document.getElementById('table-container').innerHTML = `
+    <div class="state-box">
+      <div class="spinner"></div>
+      <div class="state-title">Cargando cronograma...</div>
+    </div>`;
+
+  try {
+    const table = await fetchSheet();
+    const { cols, rows: allRows } = parseTable(table);
+    const rows = filterRows(allRows);
+
+    if (rows.length === 0) {
+      showError('No se encontraron filas de servicios. Verifica que el nombre de la pestaña sea correcto en la configuración.');
+      return;
+    }
+
+    // Update month label
+    const { month, year } = getMonthInfo(rows);
+    document.getElementById('month-label').textContent = `${MONTHS_ES[month]} ${year}`;
+    document.getElementById('month-sub').textContent = 'Departamento de Comunicaciones · IPUC Central Cali';
+
+    // Sheet link
+    const sheetLink = document.getElementById('sheet-link');
+    sheetLink.href = `https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}`;
+    sheetLink.style.display = 'flex';
+
+    // Render
+    buildTable(cols, rows);
+    buildStatsUI(rows);
+
+    // Timestamp
+    const now = new Date();
+    document.getElementById('last-update').textContent =
+      `Actualizado ${now.toLocaleTimeString('es-CO', {hour:'2-digit', minute:'2-digit'})}`;
+
+  } catch (err) {
+    const m = err.message;
+    const msg = (m.includes('403') || m.includes('401'))
+      ? 'El Google Sheet no es accesible. Asegúrate de que está compartido como <strong>Cualquier persona con el enlace → Lector</strong>.'
+      : m.includes('404')
+      ? 'No se encontró el Sheet. Verifica el SHEET_ID en la configuración.'
+      : (m.includes('fetch') || m.includes('network') || m.includes('Network'))
+      ? '⚠️ <strong>No se pudo conectar a Google Sheets.</strong> Hay dos posibles causas:<br><br>1. El Sheet no está compartido públicamente. Ve a <strong>Compartir → Acceso general → Cualquier persona con el enlace → Lector</strong>.<br><br>2. Estás abriendo el archivo directamente (doble clic). Debe abrirse desde un servidor local o estar alojado en la web.'
+      : `Error: ${m}`;
+    showError(msg);
+  } finally {
+    btn.classList.remove('spinning');
+    btn.disabled = false;
+  }
+}
+
+// Run on load
+loadCronograma();
+</script>
+</body>
+</html>
