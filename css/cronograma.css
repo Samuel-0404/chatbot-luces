@@ -1,0 +1,420 @@
+/**
+ * DECOM - Cronograma Page
+ * Estilos específicos para la página de cronograma
+ */
+
+/* ────────────────────────────────────────────────────────────────────────
+   PAGE DECORATIONS
+──────────────────────────────────────────────────────────────────────── */
+body.page-cronograma::before {
+  right: -10%;
+  left: auto;
+  top: -20%;
+  transform: none;
+  background: radial-gradient(circle, rgba(13, 148, 136, 0.06) 0%, transparent 70%);
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   SETUP CARD
+──────────────────────────────────────────────────────────────────────── */
+.setup-card {
+  background: var(--surface);
+  border: 1px solid rgba(240, 192, 96, 0.3);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl) var(--space-xl);
+  margin-bottom: var(--space-lg);
+  display: none;
+}
+
+.setup-card.visible {
+  display: block;
+}
+
+.setup-card h3 {
+  font-size: var(--text-xl);
+  color: var(--gold);
+  margin-bottom: var(--space-md);
+}
+
+.setup-steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.setup-step {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: var(--leading-relaxed);
+}
+
+.setup-step__number {
+  min-width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(240, 192, 96, 0.15);
+  border: 1px solid rgba(240, 192, 96, 0.3);
+  color: var(--gold);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   PAGE HEADER
+──────────────────────────────────────────────────────────────────────── */
+.page-header--cronograma {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.month-info h1 {
+  font-size: var(--text-4xl);
+  line-height: var(--leading-tight);
+  margin-bottom: 4px;
+}
+
+.month-info p {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.refresh-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.refresh-btn:hover {
+  color: var(--text);
+  border-color: var(--border-hover);
+  background: var(--surface3);
+}
+
+.refresh-btn.spinning .refresh-btn__icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.last-update {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   STATS ROW
+──────────────────────────────────────────────────────────────────────── */
+.stats-row {
+  display: flex;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.stat-card__value {
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.stat-card__label {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stat-card--today .stat-card__value {
+  color: var(--gold);
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   TABLE
+──────────────────────────────────────────────────────────────────────── */
+.table-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.cronograma-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.cronograma-table thead {
+  background: linear-gradient(135deg, #0d6e6b, var(--teal));
+}
+
+.cronograma-table th {
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #ccfbf1;
+  font-size: var(--text-xs);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cronograma-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background var(--transition-fast);
+}
+
+.cronograma-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.cronograma-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.cronograma-table tbody tr.row-today {
+  background: rgba(240, 192, 96, 0.07);
+  border-left: 3px solid var(--gold);
+}
+
+.cronograma-table tbody tr.row-today:hover {
+  background: rgba(240, 192, 96, 0.1);
+}
+
+.cronograma-table td {
+  padding: 12px 16px;
+  color: var(--text);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.cronograma-table td.empty {
+  color: var(--text-muted);
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   DAY BADGES
+──────────────────────────────────────────────────────────────────────── */
+.day-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.day-badge--martes {
+  background: rgba(79, 127, 255, 0.15);
+  color: var(--accent-light);
+}
+
+.day-badge--jueves {
+  background: rgba(13, 148, 136, 0.15);
+  color: #5eead4;
+}
+
+.day-badge--viernes {
+  background: rgba(124, 92, 255, 0.15);
+  color: #b89aff;
+}
+
+.day-badge--sabado {
+  background: rgba(249, 115, 22, 0.15);
+  color: #fb923c;
+}
+
+.day-badge--domingo {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   TODAY TAG
+──────────────────────────────────────────────────────────────────────── */
+.today-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(240, 192, 96, 0.2);
+  border: 1px solid rgba(240, 192, 96, 0.4);
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: 600;
+  margin-left: var(--space-sm);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   STATE BOXES
+──────────────────────────────────────────────────────────────────────── */
+.state-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2xl) var(--space-lg);
+  gap: var(--space-md);
+  text-align: center;
+}
+
+.state-box__icon {
+  font-size: 40px;
+  opacity: 0.5;
+}
+
+.state-box__title {
+  font-size: var(--text-lg);
+  font-weight: 500;
+  color: var(--text);
+}
+
+.state-box__message {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  max-width: 480px;
+  line-height: var(--leading-relaxed);
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 3px solid var(--border);
+  border-top-color: var(--teal);
+  animation: spin 0.8s linear infinite;
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   FOOTER
+──────────────────────────────────────────────────────────────────────── */
+.page-footer {
+  margin-top: var(--space-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.footer-note {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.footer-link {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color var(--transition-fast);
+}
+
+.footer-link:hover {
+  color: var(--text);
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   RESPONSIVE
+──────────────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .stats-row {
+    display: none;
+  }
+
+  .month-info h1 {
+    font-size: var(--text-2xl);
+  }
+
+  .cronograma-table {
+    font-size: var(--text-xs);
+  }
+
+  .cronograma-table th,
+  .cronograma-table td {
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header--cronograma {
+    flex-direction: column;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .setup-card {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .cronograma-table th,
+  .cronograma-table td {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+
+  .day-badge {
+    padding: 3px 8px;
+    font-size: 10px;
+  }
+}

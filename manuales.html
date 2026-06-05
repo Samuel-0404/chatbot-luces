@@ -1,394 +1,115 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Manuales · DECOM · IPUC Central Cali</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #0d0f14;
-    --surface: #13161e;
-    --surface2: #1a1e28;
-    --border: rgba(255,255,255,0.07);
-    --accent: #4f7fff;
-    --accent2: #7c5cff;
-    --gold: #f0c060;
-    --text: #e8eaf0;
-    --text-muted: #6b7280;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  /* ── NAVBAR ── */
-  .navbar {
-    position: fixed; top: 0; left: 0; right: 0; height: 56px;
-    z-index: 100;
-    background: rgba(13,15,20,0.94);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--border);
-    display: flex; align-items: center;
-    padding: 0 24px; justify-content: space-between;
-  }
-  .nav-brand { display: flex; align-items: center; gap: 10px; }
-  .nav-brand-icon {
-    width: 32px; height: 32px; border-radius: 8px;
-    background: linear-gradient(135deg, rgba(79,127,255,0.25), rgba(124,92,255,0.25));
-    border: 1px solid rgba(79,127,255,0.3);
-    display: flex; align-items: center; justify-content: center; font-size: 16px;
-  }
-  .nav-brand-text { display: flex; flex-direction: column; line-height: 1.2; }
-  .nav-brand-text strong { font-size: 14px; font-weight: 600; color: var(--text); letter-spacing: 0.06em; }
-  .nav-brand-text small { font-size: 10px; color: var(--text-muted); }
-  .nav-links { display: flex; align-items: center; gap: 4px; }
-  .nav-link {
-    display: flex; align-items: center; gap: 6px;
-    padding: 6px 14px; border-radius: 8px;
-    font-size: 13px; font-weight: 500; color: var(--text-muted);
-    text-decoration: none; transition: all 0.15s;
-    border: 1px solid transparent;
-  }
-  .nav-link:hover { color: var(--text); background: var(--surface2); }
-  .nav-link.active {
-    color: var(--text);
-    background: linear-gradient(135deg, rgba(79,127,255,0.15), rgba(124,92,255,0.15));
-    border-color: rgba(79,127,255,0.25);
-  }
-
-  /* ── PAGE ── */
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-    padding: 76px 24px 32px;
-  }
-  body::before {
-    content: '';
-    position: fixed; top: -30%; left: 50%;
-    transform: translateX(-50%);
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(79,127,255,0.06) 0%, transparent 70%);
-    pointer-events: none; z-index: 0;
-  }
-
-  .page-content {
-    max-width: 960px; margin: 0 auto;
-    position: relative; z-index: 1;
-    animation: fadeUp 0.4s ease;
-  }
-
-  .page-header { margin-bottom: 28px; }
-  .page-header h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 28px; font-weight: 400; color: var(--text);
-    margin-bottom: 6px;
-  }
-  .page-header p { font-size: 14px; color: var(--text-muted); }
-
-  /* ── MANUAL CARDS ── */
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-bottom: 28px;
-  }
-
-  .manual-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px 20px 24px;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex; flex-direction: column;
-    align-items: center; text-align: center; gap: 14px;
-    position: relative; overflow: hidden;
-  }
-  .manual-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    border-radius: 16px 16px 0 0;
-    opacity: 0; transition: opacity 0.2s;
-  }
-  .manual-card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(255,255,255,0.12);
-  }
-  .manual-card:hover::before { opacity: 1; }
-  .manual-card.active {
-    border-color: rgba(79,127,255,0.4);
-    transform: translateY(-3px);
-  }
-  .manual-card.active::before { opacity: 1; }
-
-  /* Per-card accent colors */
-  .card-transm::before { background: linear-gradient(90deg, var(--accent), var(--accent2)); }
-  .card-transm.active   { border-color: rgba(79,127,255,0.45); background: rgba(79,127,255,0.04); }
-
-  .card-proyec::before { background: linear-gradient(90deg, var(--accent2), #a855f7); }
-  .card-proyec.active   { border-color: rgba(124,92,255,0.45); background: rgba(124,92,255,0.04); }
-
-  .card-luces::before  { background: linear-gradient(90deg, var(--gold), #f97316); }
-  .card-luces.active    { border-color: rgba(240,192,96,0.45);  background: rgba(240,192,96,0.04); }
-
-  .card-icon {
-    width: 60px; height: 60px; border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 28px;
-  }
-  .card-transm .card-icon { background: rgba(79,127,255,0.12);  border: 1px solid rgba(79,127,255,0.2); }
-  .card-proyec .card-icon { background: rgba(124,92,255,0.12);  border: 1px solid rgba(124,92,255,0.2); }
-  .card-luces  .card-icon { background: rgba(240,192,96,0.12);  border: 1px solid rgba(240,192,96,0.2); }
-
-  .card-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 20px; font-weight: 400; color: var(--text);
-  }
-  .card-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
-
-  .card-btn {
-    margin-top: 4px;
-    padding: 8px 20px; border-radius: 8px;
-    font-size: 13px; font-weight: 500;
-    border: 1px solid var(--border);
-    background: var(--surface2); color: var(--text-muted);
-    transition: all 0.15s; pointer-events: none;
-  }
-  .manual-card.active .card-btn,
-  .manual-card:hover .card-btn {
-    background: rgba(79,127,255,0.1);
-    border-color: rgba(79,127,255,0.3);
-    color: var(--text);
-  }
-  .card-luces.active .card-btn,
-  .card-luces:hover .card-btn {
-    background: rgba(240,192,96,0.1);
-    border-color: rgba(240,192,96,0.3);
-    color: var(--gold);
-  }
-  .card-proyec.active .card-btn,
-  .card-proyec:hover .card-btn {
-    background: rgba(124,92,255,0.1);
-    border-color: rgba(124,92,255,0.3);
-    color: #b89aff;
-  }
-
-  /* ── PDF VIEWER ── */
-  .pdf-viewer {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-    display: none;
-    animation: fadeUp 0.3s ease;
-  }
-  .pdf-viewer.open { display: flex; flex-direction: column; }
-
-  .pdf-topbar {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 20px;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface2);
-  }
-  .pdf-topbar-left { display: flex; align-items: center; gap: 10px; }
-  .pdf-topbar-icon { font-size: 18px; }
-  .pdf-topbar-title {
-    font-size: 14px; font-weight: 500; color: var(--text);
-  }
-  .pdf-topbar-sub { font-size: 12px; color: var(--text-muted); }
-
-  .pdf-topbar-actions { display: flex; align-items: center; gap: 8px; }
-  .pdf-action-btn {
-    padding: 6px 14px; border-radius: 7px; font-size: 12px;
-    font-weight: 500; cursor: pointer; transition: all 0.15s;
-    text-decoration: none; display: flex; align-items: center; gap: 5px;
-  }
-  .btn-open {
-    background: rgba(79,127,255,0.12);
-    border: 1px solid rgba(79,127,255,0.3);
-    color: #7eb8ff;
-  }
-  .btn-open:hover { background: rgba(79,127,255,0.2); }
-  .btn-close {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-  }
-  .btn-close:hover { color: var(--text); background: var(--surface2); }
-
-  .pdf-frame-wrap {
-    height: 72vh;
-  }
-  .pdf-frame-wrap iframe {
-    width: 100%; height: 100%; border: none; display: block;
-  }
-  .pdf-placeholder {
-    height: 72vh;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 16px; color: var(--text-muted);
-  }
-  .pdf-placeholder-icon { font-size: 48px; opacity: 0.4; }
-  .pdf-placeholder h3 { font-size: 16px; color: var(--text); font-weight: 500; }
-  .pdf-placeholder p { font-size: 13px; text-align: center; max-width: 340px; line-height: 1.6; }
-  .pdf-placeholder code {
-    display: inline-block; margin-top: 8px;
-    padding: 6px 12px; border-radius: 6px;
-    background: var(--surface2); border: 1px solid var(--border);
-    font-family: monospace; font-size: 12px; color: var(--gold);
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 640px) {
-    .cards-grid { grid-template-columns: 1fr; }
-    .nav-brand-text small { display: none; }
-  }
-
-  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Manuales técnicos del Departamento de Comunicaciones - IPUC Central Cali">
+  <title>Manuales · DECOM · IPUC Central Cali</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/manuales.css">
 </head>
 <body>
-
-<!-- NAVBAR -->
-<nav class="navbar">
-  <div class="nav-brand">
-    <div class="nav-brand-icon">⚙️</div>
-    <div class="nav-brand-text">
-      <strong>DECOM</strong>
-      <small>IPUC Central Cali</small>
+  
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar__container">
+      <a href="index.html" class="navbar__brand">
+        <div class="navbar__brand-icon">⚙️</div>
+        <div class="navbar__brand-text">
+          <div class="navbar__brand-title">DECOM</div>
+          <div class="navbar__brand-subtitle">IPUC Central Cali</div>
+        </div>
+      </a>
+      
+      <button class="navbar__toggle" aria-label="Menú" aria-expanded="false">☰</button>
+      
+      <div class="navbar__nav">
+        <a href="index.html" class="navbar__link">💬 Asistente</a>
+        <a href="manuales.html" class="navbar__link active">📋 Manuales</a>
+        <a href="cronograma.html" class="navbar__link">📅 Cronograma</a>
+      </div>
     </div>
-  </div>
-  <div class="nav-links">
-    <a href="index.html"      class="nav-link">💬 Asistente</a>
-    <a href="manuales.html"   class="nav-link active">📋 Manuales</a>
-    <a href="cronograma.html" class="nav-link">📅 Cronograma</a>
-  </div>
-</nav>
+  </nav>
 
-<div class="page-content">
-  <div class="page-header">
-    <h1>Manuales técnicos</h1>
-    <p>Selecciona un área para ver su manual de operación</p>
-  </div>
-
-  <div class="cards-grid">
-    <div class="manual-card card-transm" onclick="openManual('transmision')">
-      <div class="card-icon">📡</div>
-      <div class="card-title">Transmisión</div>
-      <div class="card-desc">Operación del equipo de transmisión en vivo</div>
-      <div class="card-btn">Ver manual</div>
-    </div>
-
-    <div class="manual-card card-proyec" onclick="openManual('proyeccion')">
-      <div class="card-icon">🎥</div>
-      <div class="card-title">Proyección</div>
-      <div class="card-desc">Manejo de pantallas y presentaciones</div>
-      <div class="card-btn">Ver manual</div>
+  <!-- Page Content -->
+  <div class="page-content">
+    
+    <!-- Header -->
+    <div class="page-header">
+      <h1>Manuales técnicos</h1>
+      <p>Selecciona un área para ver su manual de operación</p>
     </div>
 
-    <div class="manual-card card-luces" onclick="openManual('luces')">
-      <div class="card-icon">💡</div>
-      <div class="card-title">Luces</div>
-      <div class="card-desc">Sistema ADJ myDMX 3 · SWITCH IPUC CENTRAL</div>
-      <div class="card-btn">Ver manual</div>
-    </div>
-  </div>
+    <!-- Manual Cards Grid -->
+    <div class="cards-grid">
+      
+      <!-- Transmisión -->
+      <div class="manual-card manual-card--transm" onclick="openManual('transmision')">
+        <div class="manual-card__icon">📡</div>
+        <h3 class="manual-card__title">Transmisión</h3>
+        <p class="manual-card__desc">Operación del equipo de transmisión en vivo</p>
+        <div class="manual-card__btn">Ver manual</div>
+      </div>
 
-  <div id="pdf-viewer" class="pdf-viewer">
-    <div class="pdf-topbar">
-      <div class="pdf-topbar-left">
-        <span class="pdf-topbar-icon" id="pdf-icon"></span>
-        <div>
-          <div class="pdf-topbar-title" id="pdf-title"></div>
-          <div class="pdf-topbar-sub">Manual técnico · DECOM 2026</div>
+      <!-- Proyección -->
+      <div class="manual-card manual-card--proyec" onclick="openManual('proyeccion')">
+        <div class="manual-card__icon">🎥</div>
+        <h3 class="manual-card__title">Proyección</h3>
+        <p class="manual-card__desc">Manejo de pantallas y presentaciones</p>
+        <div class="manual-card__btn">Ver manual</div>
+      </div>
+
+      <!-- Luces -->
+      <div class="manual-card manual-card--luces" onclick="openManual('luces')">
+        <div class="manual-card__icon">💡</div>
+        <h3 class="manual-card__title">Luces</h3>
+        <p class="manual-card__desc">Sistema ADJ myDMX 3 · SWITCH IPUC CENTRAL</p>
+        <div class="manual-card__btn">Ver manual</div>
+      </div>
+
+    </div>
+
+    <!-- PDF Viewer -->
+    <div id="pdf-viewer" class="pdf-viewer">
+      
+      <!-- Topbar -->
+      <div class="pdf-viewer__topbar">
+        <div class="pdf-viewer__topbar-left">
+          <span id="pdf-icon" class="pdf-viewer__icon"></span>
+          <div class="pdf-viewer__info">
+            <div id="pdf-title" class="pdf-viewer__title"></div>
+            <div class="pdf-viewer__subtitle">Manual técnico · DECOM 2026</div>
+          </div>
+        </div>
+        <div class="pdf-viewer__actions">
+          <a id="pdf-open-link" href="#" target="_blank" class="pdf-action-btn pdf-action-btn--open">
+            ↗ Abrir en pestaña
+          </a>
+          <button class="pdf-action-btn pdf-action-btn--close" onclick="closeManual()">
+            ✕ Cerrar
+          </button>
         </div>
       </div>
-      <div class="pdf-topbar-actions">
-        <a id="pdf-open-link" href="#" target="_blank" class="pdf-action-btn btn-open">↗ Abrir en pestaña</a>
-        <button class="pdf-action-btn btn-close" onclick="closeManual()">✕ Cerrar</button>
-      </div>
+
+      <!-- Body -->
+      <div id="pdf-body" class="pdf-viewer__body"></div>
+
     </div>
-    <div id="pdf-body"></div>
+
   </div>
-</div>
 
-<script>
-const manuals = {
-  transmision: {
-    icon: '📡',
-    title: 'Manual de Transmisión',
-    file: 'pdfs/manual-transmision.pdf',
-  },
-  proyeccion: {
-    icon: '🎥',
-    title: 'Manual de Proyección',
-    file: 'pdfs/manual-proyeccion.pdf',
-  },
-  luces: {
-    icon: '💡',
-    title: 'Manual de Luces',
-    file: 'pdfs/manual-luces.pdf',
-  },
-};
+  <!-- Scripts -->
+  <script src="js/navbar.js"></script>
+  <script src="js/manuales.js"></script>
 
-let currentManual = null;
-
-function openManual(key) {
-  const m = manuals[key];
-  if (!m) return;
-
-  // Update active card
-  document.querySelectorAll('.manual-card').forEach(c => c.classList.remove('active'));
-  document.querySelector(`.card-${key === 'transmision' ? 'transm' : key === 'proyeccion' ? 'proyec' : 'luces'}`).classList.add('active');
-
-  // Update topbar
-  document.getElementById('pdf-icon').textContent  = m.icon;
-  document.getElementById('pdf-title').textContent = m.title;
-  document.getElementById('pdf-open-link').href    = m.file;
-
-  // Render PDF or placeholder if file not found
-  const body = document.getElementById('pdf-body');
-  body.innerHTML = '';
-
-  // Try loading the PDF; show placeholder if it fails
-  const iframe = document.createElement('iframe');
-  iframe.className = 'pdf-frame-wrap';
-  iframe.style.cssText = 'width:100%;height:72vh;border:none;display:block;';
-  iframe.src = m.file;
-  iframe.onerror = () => showPlaceholder(key, m);
-
-  // Wrap in a div to catch load errors via a fallback timeout check
-  const wrap = document.createElement('div');
-  wrap.className = 'pdf-frame-wrap';
-  wrap.style.height = '72vh';
-  wrap.appendChild(iframe);
-  body.appendChild(wrap);
-
-  // Show the viewer
-  const viewer = document.getElementById('pdf-viewer');
-  viewer.classList.add('open');
-  viewer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-  currentManual = key;
-}
-
-function showPlaceholder(key, m) {
-  const body = document.getElementById('pdf-body');
-  const filename = m.file.split('/').pop();
-  body.innerHTML = `
-    <div class="pdf-placeholder">
-      <div class="pdf-placeholder-icon">${m.icon}</div>
-      <h3>Manual no encontrado</h3>
-      <p>Para ver este manual, copia el archivo PDF a la carpeta <strong>pdfs/</strong> del proyecto con el nombre:</p>
-      <code>${filename}</code>
-    </div>`;
-}
-
-function closeManual() {
-  document.getElementById('pdf-viewer').classList.remove('open');
-  document.querySelectorAll('.manual-card').forEach(c => c.classList.remove('active'));
-  currentManual = null;
-}
-</script>
 </body>
 </html>
