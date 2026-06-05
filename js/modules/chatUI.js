@@ -31,7 +31,20 @@ export class ChatUI {
 
     const avatar = document.createElement('div');
     avatar.className = 'message__avatar';
-    avatar.textContent = role === 'bot' ? '⚙️' : '👤';
+    
+    if (role === 'bot') {
+      avatar.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+        <line x1="9" y1="9" x2="9.01" y2="9"/>
+        <line x1="15" y1="9" x2="15.01" y2="9"/>
+      </svg>`;
+    } else {
+      avatar.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+      </svg>`;
+    }
 
     const bubble = document.createElement('div');
     bubble.className = 'message__bubble';

@@ -10,43 +10,93 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Styles -->
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/sidebar.css">
   <link rel="stylesheet" href="css/cronograma.css">
 </head>
 <body class="page-cronograma">
   
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="navbar__container">
-      <a href="index.html" class="navbar__brand">
-        <div class="navbar__brand-icon">⚙️</div>
-        <div class="navbar__brand-text">
-          <div class="navbar__brand-title">DECOM</div>
-          <div class="navbar__brand-subtitle">IPUC Central Cali</div>
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <!-- Brand -->
+    <div class="sidebar__brand">
+      <div class="sidebar__brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span class="sidebar__brand-text">DECOM</span>
+    </div>
+
+    <!-- Nav -->
+    <div class="sidebar__nav">
+      <a href="index.html" class="sidebar__link" data-tooltip="Asistente">
+        <div class="sidebar__icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
         </div>
+        <span class="sidebar__text">Asistente</span>
       </a>
       
-      <button class="navbar__toggle" aria-label="Menú" aria-expanded="false">☰</button>
+      <a href="manuales.html" class="sidebar__link" data-tooltip="Manuales">
+        <div class="sidebar__icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+        </div>
+        <span class="sidebar__text">Manuales</span>
+      </a>
       
-      <div class="navbar__nav">
-        <a href="index.html" class="navbar__link">💬 Asistente</a>
-        <a href="manuales.html" class="navbar__link">📋 Manuales</a>
-        <a href="cronograma.html" class="navbar__link active">📅 Cronograma</a>
+      <a href="cronograma.html" class="sidebar__link sidebar__link--active" data-tooltip="Cronograma">
+        <div class="sidebar__icon">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </div>
+        <span class="sidebar__text">Cronograma</span>
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <div class="sidebar__footer">
+      <div class="sidebar__user">
+        <div class="sidebar__avatar">DC</div>
+        <div class="sidebar__user-info">
+          <div class="sidebar__user-name">DECOM</div>
+          <div class="sidebar__user-role">IPUC Cali</div>
+        </div>
       </div>
     </div>
   </nav>
+
+  <!-- Mobile Menu Toggle -->
+  <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
 
   <!-- Page Content -->
   <div class="page-content">
 
     <!-- Setup Card (shown when config is missing) -->
     <div id="setup-card" class="setup-card">
-      <h3>⚙️ Configuración requerida</h3>
+      <h3>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px; display: inline-block; vertical-align: middle; margin-right: 8px;">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M12 1v6m0 6v6M5.64 5.64l4.24 4.24m4.24 4.24l4.24 4.24M1 12h6m6 0h6M5.64 18.36l4.24-4.24m4.24-4.24l4.24-4.24"/>
+        </svg>
+        Configuración requerida
+      </h3>
       <div class="setup-steps">
         <div class="setup-step">
           <div class="setup-step__number">1</div>
@@ -73,9 +123,19 @@
 
     <!-- Page Header -->
     <div class="page-header page-header--cronograma">
-      <div class="month-info">
-        <h1 id="month-label">Cronograma</h1>
-        <p id="month-sub">Departamento de Comunicaciones · IPUC Central Cali</p>
+      <div class="page-header__content">
+        <div class="page-header__logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </div>
+        <div class="page-header__title">
+          <h1 id="month-label">Cronograma</h1>
+          <p id="month-sub" class="page-header__subtitle">Departamento de Comunicaciones · IPUC Central Cali</p>
+        </div>
       </div>
       <div class="header-actions">
         <button id="refresh-btn" class="refresh-btn">
@@ -88,6 +148,73 @@
 
     <!-- Stats Row -->
     <div id="stats-row" class="stats-row" style="display:none;"></div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <div class="search-bar__input-wrapper">
+        <svg class="search-bar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input 
+          type="text" 
+          id="person-search" 
+          class="search-bar__input" 
+          placeholder="Buscar por persona (ej: Juan, María)..."
+          autocomplete="off"
+        />
+        <button id="clear-search" class="search-bar__clear" style="display:none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-bar__results"></div>
+    </div>
+
+    <!-- Legend (Mobile only) -->
+    <div class="roles-legend">
+      <div class="roles-legend__title">Leyenda de roles:</div>
+      <div class="roles-legend__items">
+        <div class="roles-legend__item">
+          <span class="role-badge role-badge--supervisor">SUP</span>
+          <span class="roles-legend__label">Supervisor</span>
+        </div>
+        <div class="roles-legend__item">
+          <span class="role-badge role-badge--lider">LID</span>
+          <span class="roles-legend__label">Líder Transmisión</span>
+        </div>
+        <div class="roles-legend__item">
+          <span class="role-badge role-badge--aprendiz">APR</span>
+          <span class="roles-legend__label">Aprendiz Transmisión</span>
+        </div>
+        <div class="roles-legend__item">
+          <span class="role-badge role-badge--proyeccion">PRO</span>
+          <span class="roles-legend__label">Proyección</span>
+        </div>
+        <div class="roles-legend__item">
+          <span class="role-badge role-badge--aprendiz">A-PRO</span>
+          <span class="roles-legend__label">Aprendiz Proyección</span>
+        </div>
+        <div class="roles-legend__item">
+          <span class="role-badge role-badge--interaccion">INT</span>
+          <span class="roles-legend__label">Interacción</span>
+        </div>
+        <div class="roles-legend__item">
+          <span class="role-badge role-badge--aprendiz">A-INT</span>
+          <span class="roles-legend__label">Aprendiz Interacción</span>
+        </div>
+        <div class="roles-legend__item">
+          <span class="role-badge role-badge--sonido">SON</span>
+          <span class="roles-legend__label">Sonido</span>
+        </div>
+        <div class="roles-legend__item">
+          <span class="role-badge role-badge--apoyo">APO</span>
+          <span class="roles-legend__label">Apoyo Sonido</span>
+        </div>
+      </div>
+    </div>
 
     <!-- Table Container -->
     <div class="table-wrap">
@@ -103,14 +230,18 @@
     <div class="page-footer">
       <span class="footer-note">Cronograma mensual · DECOM 2026</span>
       <a id="sheet-link" href="#" target="_blank" class="footer-link" style="display:none;">
-        📊 Ver hoja de cálculo
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle; margin-right: 6px;">
+          <path d="M3 3v18h18"/>
+          <path d="m19 9-5 5-4-4-5 5"/>
+        </svg>
+        Ver hoja de cálculo
       </a>
     </div>
 
   </div>
 
   <!-- Scripts -->
-  <script src="js/navbar.js"></script>
+  <script src="js/sidebar.js"></script>
   <script type="module" src="js/cronograma.js"></script>
 
 </body>

@@ -1,27 +1,27 @@
-# 🎛️ DECOM - Sistema de Asistencia Técnica
+# DECOM - Sistema de Asistencia Técnica
 
 Sistema web moderno para el Departamento de Comunicaciones de la IPUC Central Cali. Incluye asistente de chat con IA, manuales técnicos y cronograma integrado con Google Sheets.
 
-## 📋 Características
+## Características
 
-### 🤖 Asistente Técnico (index.html)
+### Asistente Técnico (index.html)
 - Chat inteligente con IA (Groq API)
 - Diagnóstico de problemas de Luces, Transmisión y Proyección
 - Respuestas rápidas contextuales
 - Interfaz responsive y moderna
 
-### 📚 Manuales Técnicos (manuales.html)
+### Manuales Técnicos (manuales.html)
 - Visualizador de PDFs integrado
 - Tres áreas: Transmisión, Proyección y Luces
 - Sistema de fallback para PDFs no disponibles
 
-### 📅 Cronograma (cronograma.html)
+### Cronograma (cronograma.html)
 - Integración con Google Sheets en tiempo real
 - Identificación automática del día actual
 - Estadísticas mensuales
 - Actualización manual con botón refresh
 
-## 🚀 Configuración Inicial
+## Configuración Inicial
 
 ### 1. API de Groq (para el asistente de chat)
 
@@ -63,7 +63,7 @@ export const CONFIG = {
    - `manual-proyeccion.pdf`
    - `manual-luces.pdf`
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 chatbot-luces/
@@ -91,7 +91,7 @@ chatbot-luces/
 └── README.md             # Este archivo
 ```
 
-## 🎨 Design System
+## Design System
 
 ### Colores Principales
 - **Accent**: `#4f7fff` (Azul)
@@ -108,7 +108,7 @@ chatbot-luces/
 - **Tablet**: 640px - 768px
 - **Mobile**: < 640px
 
-## 🛠️ Personalización
+## Personalización
 
 ### Modificar los manuales del asistente
 
@@ -128,7 +128,7 @@ Edita el `SYSTEM_PROMPT` en `js/modules/manuals.js` para modificar la personalid
 3. Agrega un chip en `index.html` (sección `.chat__chips`)
 4. Agrega una tarjeta en `manuales.html` (sección `.cards-grid`)
 
-## 🌐 Despliegue
+## Despliegue
 
 Este es un proyecto HTML estático puro. Puede desplegarse en:
 
@@ -137,7 +137,7 @@ Este es un proyecto HTML estático puro. Puede desplegarse en:
 - **Vercel**: Conecta tu repositorio
 - **Servidor local**: Simplemente abre `index.html` en el navegador
 
-### ⚠️ Importante para producción
+### Importante para producción
 
 Si usas un servidor web (no `file://`), los módulos ES6 funcionarán correctamente. Para abrir localmente, usa un servidor como:
 
@@ -152,7 +152,7 @@ npx serve
 # Instala la extensión "Live Server" y haz clic derecho → Open with Live Server
 ```
 
-## 🔧 Solución de Problemas
+## Solución de Problemas
 
 ### El chat no responde
 - Verifica que tu API Key de Groq sea válida
@@ -174,22 +174,18 @@ npx serve
 - Verifica que las rutas sean correctas
 - Revisa la consola para errores de CORS
 
-## 📱 Compatibilidad
+##  Compatibilidad
 
-- ✅ Chrome/Edge (últimas 2 versiones)
-- ✅ Firefox (últimas 2 versiones)
-- ✅ Safari (últimas 2 versiones)
-- ✅ Mobile Safari (iOS 13+)
-- ✅ Chrome Mobile (Android 8+)
+-  Chrome/Edge (últimas 2 versiones)
+-  Firefox (últimas 2 versiones)
+-  Safari (últimas 2 versiones)
+-  Mobile Safari (iOS 13+)
+-  Chrome Mobile (Android 8+)
 
-## 📄 Licencia
+##  Licencia
 
 Proyecto interno de IPUC Central Cali - Departamento de Comunicaciones.
 
-## 🤝 Contribuir
+##  Contribuir
 
 Para reportar problemas o sugerir mejoras, contacta al equipo de DECOM.
-
----
-
-**Hecho con ❤️ para IPUC Central Cali**

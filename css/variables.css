@@ -34,8 +34,8 @@
   /* ────────────────────────────────────────────────────────────────────────
      TIPOGRAFÍA
   ──────────────────────────────────────────────────────────────────────── */
-  --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-serif: 'DM Serif Display', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'SF Mono', 'Roboto Mono', monospace;
   
   /* Font sizes */
   --text-xs: 11px;
@@ -61,6 +61,10 @@
   --space-lg: 24px;
   --space-xl: 32px;
   --space-2xl: 48px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
   
   /* ────────────────────────────────────────────────────────────────────────
      BORDER RADIUS
@@ -69,6 +73,7 @@
   --radius-md: 10px;
   --radius-lg: 14px;
   --radius-xl: 20px;
+  --radius-2xl: 24px;
   --radius-full: 9999px;
   
   /* ────────────────────────────────────────────────────────────────────────
@@ -77,6 +82,9 @@
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.15);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.2);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 20px rgba(79, 127, 255, 0.15);
+  --shadow-glow-gold: 0 0 20px rgba(240, 192, 96, 0.15);
   
   /* ────────────────────────────────────────────────────────────────────────
      TRANSICIONES
@@ -97,10 +105,19 @@
   /* ────────────────────────────────────────────────────────────────────────
      LAYOUT
   ──────────────────────────────────────────────────────────────────────── */
-  --navbar-height: 56px;
+  --sidebar-width: 72px;
+  --sidebar-width-expanded: 260px;
+  --topbar-height: 60px;
   --max-width-xs: 480px;
   --max-width-sm: 640px;
   --max-width-md: 768px;
   --max-width-lg: 1024px;
   --max-width-xl: 1280px;
+  
+  /* ────────────────────────────────────────────────────────────────────────
+     ANIMACIONES
+  ──────────────────────────────────────────────────────────────────────── */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
 }
