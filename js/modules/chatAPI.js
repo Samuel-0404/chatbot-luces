@@ -54,14 +54,14 @@ export class ChatAPI {
   }
 
   /**
-   * Realiza la petición HTTP a Groq
+   * Realiza la petición HTTP al proxy serverless (Vercel)
+   * La API key de Groq nunca sale del servidor
    */
   async fetchGroqAPI() {
-    return fetch(CONFIG.GROQ_API_URL, {
+    return fetch('/api/chat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${CONFIG.GROQ_API_KEY}`
       },
       body: JSON.stringify({
         model: CONFIG.MODEL,
