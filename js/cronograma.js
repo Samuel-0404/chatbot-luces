@@ -437,10 +437,6 @@ async function loadCronograma() {
     document.getElementById('month-label').textContent = `${MONTHS_ES[month]} ${year}`;
     document.getElementById('month-sub').textContent = 'Departamento de Comunicaciones · IPUC Central Cali';
 
-    // Link al sheet
-    const sheetLink = document.getElementById('sheet-link');
-    sheetLink.href = `https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}`;
-    sheetLink.style.display = 'flex';
 
     // Renderizar
     buildTable(cols, rows);
