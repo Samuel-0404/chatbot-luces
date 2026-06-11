@@ -186,10 +186,27 @@ export class ChatUI {
     // Formateo básico de markdown
     cleanText = cleanText
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*(.*?)\*/g, '<em>$1</em>')
-      .replace(/^(\d+)\.\s(.+)$/gm, '<li>$2</li>')
-      .replace(/(<li>[\s\S]*?<\/li>)/g, m => `<ol>${m}</ol>`)
-      .replace(/^[-•]\s(.+)$/gm, '<li>$1</li>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+    // Listas numeradas: agrupar líneas consecutivas en un solo <ol>
+    cleanText = cleanText.replace(/((?:^\d+\.\s.+\n?)+)/gm, match => {
+      const items = match.trim().split('\n')
+        .filter(l => l.trim())
+        .map(line => `<li>${line.replace(/^\d+\.\s/, '')}</li>`)
+        .join('');
+      return `<ol>${items}</ol>`;
+    });
+
+    // Listas con viñetas: agrupar en un solo <ul>
+    cleanText = cleanText.replace(/((?:^[-•]\s.+\n?)+)/gm, match => {
+      const items = match.trim().split('\n')
+        .filter(l => l.trim())
+        .map(line => `<li>${line.replace(/^[-•]\s/, '')}</li>`)
+        .join('');
+      return `<ul>${items}</ul>`;
+    });
+
+    cleanText = cleanText
       .replace(/\n\n/g, '<br><br>')
       .replace(/\n/g, '<br>');
 

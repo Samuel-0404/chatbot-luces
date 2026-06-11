@@ -101,14 +101,57 @@ PROBLEMA: Cámaras no encienden o no dan señal
 
 export const MANUAL_PROYECCION = `
 MANUAL DE PROYECCIÓN — IPUC CENTRAL CALI — DECOM 2026
-[PENDIENTE: Pega aquí el contenido del manual de proyección]
+Aplicación: HOLYRICS
 
-Notas básicas de referencia:
-- Software de proyección utilizado
-- Manejo de letras y presentaciones
-- Reproducción de videos
-- Procedimiento de inicio y cierre
-- Solución de problemas comunes
+INICIO DE APLICACIÓN:
+1. Dar doble clic en la app HOLYRICS
+2. La aplicación abrirá en la pantalla de canciones y multimedia
+
+AGREGAR FONDO DE PANTALLA (TEMA):
+1. Ir al menú TEMAS (parte superior derecha) → clic en los tres puntos → CREAR
+2. Se desplegará el menú de configuración de letras
+3. Clic en el botón CAMBIAR (parte superior derecha) para elegir fondo
+4. Seleccionar "Mis Imágenes" y arrastrar la imagen a esa ventana
+5. Doble clic sobre la imagen para establecerla como fondo
+6. Doble clic en el símbolo del disco para guardar el tema
+7. El tema quedará disponible en la barra de temas
+
+AGREGAR ARCHIVOS MULTIMEDIA:
+- Imágenes (jpg, png): arrastrar desde la carpeta de descargas al apartado "Imagen" (parte inferior)
+- Videos: igual que imágenes, pero arrastrar al apartado "Vídeo"
+- Presentaciones (PowerPoint): clic en el ícono de documento (hoja de papel) y arrastrar el archivo
+- Para controlar videos (pausar, mutear): usar "VLC Player" en la parte central derecha de Holyrics
+
+DEFINIR IMAGEN COMO FONDO DE PANTALLA:
+1. Ir a la sección IMAGEN
+2. Clic derecho sobre la imagen → seleccionar "Definir como fondo de pantalla"
+
+AGREGAR LETRAS DE CANCIONES:
+1. Clic en "Nuevo" (parte superior izquierda) → seleccionar "Canción"
+2. Llenar solo: Título y el espacio de letras
+3. Buscar la letra en internet: nombre de la canción + "letra"
+   - letras.com para canciones generales
+   - Generación Pentecostal para himnos congregacionales
+4. Seleccionar toda la letra → Copiar (Ctrl+C) → Pegar (Ctrl+V) en el espacio de Holyrics
+5. Dividir en estrofas manualmente si no quedaron separadas
+
+BUSCAR CANCIONES:
+1. Clic en la flecha al lado del buscador → activar las cuatro casillas (busca por título y letra)
+2. Escribir el nombre o parte de la letra en la barra de búsqueda
+3. Seleccionar la canción correspondiente
+
+ABRIR Y BUSCAR EN LA BIBLIA:
+1. Clic en "Ir a la Biblia" (parte superior izquierda)
+Tres formas de buscar versículos:
+- FORMA 1 (más usual): Escribir número + libro → ENTER → capítulo → ENTER → versículo → ENTER. Ej: "1 Mateo" → ENTER → "1" → ENTER → "4" → ENTER. Para mostrar en pantalla: ENTER o doble clic
+- FORMA 2: Clic en la tabla periódica → buscar iniciales del libro → clic en el versículo en la parte izquierda
+- FORMA 3: Clic en el ícono de lupa (parte inferior izquierda) → escribir la frase del versículo → ENTER o doble clic
+- Favoritos: marcar versículos frecuentes para acceso rápido
+- Historial: muestra las citas buscadas en la sesión (se borra al cerrar la app)
+
+PLUGIN HOLYRICS (APOYO A TRANSMISIÓN):
+1. Ir a "Herramientas" (parte superior central) → "Plugin Holyrics"
+2. Clic en "Encender Servidor" — debe aparecer en verde cuando esté activo
 `;
 
 export const SYSTEM_PROMPT = `Eres el asistente técnico del Departamento de Comunicaciones (DECOM) de la IPUC Central Cali. Ayudas a los voluntarios con tres áreas: Luces, Transmisión y Proyección.
@@ -147,6 +190,15 @@ LÓGICA DE DIAGNÓSTICO — TRANSMISIÓN:
 5. ¿OBS no conecta a YouTube? → Copia la clave de emisión desde YouTube Studio y pégala en OBS
 6. ¿Cámaras no responden? → Verifica F2 para seguimiento automático, luego el cable posterior del control
 7. ¿Cámaras sin señal? → Verifica el interruptor físico de las cámaras
+
+LÓGICA DE DIAGNÓSTICO — PROYECCIÓN:
+1. ¿Holyrics no abre o no responde? → Verificar que se abrió con doble clic y esperar que cargue
+2. ¿No se ve nada en la pantalla? → Verificar que hay un tema con fondo activo y que la escena está proyectando
+3. ¿No aparece una canción? → Verificar que las cuatro casillas del buscador están activas, luego buscar por letra
+4. ¿No se puede agregar multimedia? → Indicar la pestaña correcta (Imagen, Vídeo o ícono de documento según el tipo)
+5. ¿El video no tiene sonido o no pausa? → Usar VLC Player en la parte central derecha de Holyrics
+6. ¿Necesita mostrar un versículo? → Guiar con la Forma 1 primero; si falla, intentar Forma 3 con la lupa
+7. ¿Plugin Holyrics no conecta con transmisión? → Verificar que el servidor esté encendido (debe aparecer en verde)
 
 Si el problema no está en los manuales: "Eso no lo he visto antes, mejor llama directamente a alguien del equipo DECOM."
 
