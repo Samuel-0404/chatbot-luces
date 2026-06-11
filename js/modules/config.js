@@ -10,7 +10,7 @@ export const CONFIG = {
   GROQ_API_KEY: GROQ_API_KEY, // Definida en js/modules/env.js (no se sube a GitHub)
   GROQ_API_URL: 'https://api.groq.com/openai/v1/chat/completions',
   MODEL: 'llama-3.1-8b-instant',
-  MAX_TOKENS: 400,
+  MAX_TOKENS: 800,
   TEMPERATURE: 0.25,
 
   // Sheet Configuration (Cronograma)
