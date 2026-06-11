@@ -21,35 +21,44 @@ export class ChatAPI {
       content: userMessage 
     });
 
-    try {
-      const response = await this.fetchGroqAPI();
-      
-      if (!response.ok) {
-        if (response.status === 401) {
-          throw new Error('INVALID_API_KEY');
+    const maxRetries = 3;
+    const retryDelay = 2000;
+
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        const response = await this.fetchGroqAPI();
+
+        if (!response.ok) {
+          if (response.status === 401) throw new Error('INVALID_API_KEY');
+          // Si es rate limit (429) y quedan intentos, esperar y reintentar
+          if (response.status === 429 && attempt < maxRetries) {
+            await new Promise(r => setTimeout(r, retryDelay * attempt));
+            continue;
+          }
+          throw new Error(`HTTP ${response.status}`);
         }
-        throw new Error(`HTTP ${response.status}`);
+
+        const data = await response.json();
+        const reply = data.choices?.[0]?.message?.content || MESSAGES.ERROR_UNKNOWN;
+
+        this.history.push({ role: 'assistant', content: reply });
+        return reply;
+
+      } catch (error) {
+        console.error(`Chat API Error (intento ${attempt}):`, error);
+
+        if (error.message === 'INVALID_API_KEY') {
+          throw new Error(MESSAGES.ERROR_NO_API_KEY);
+        }
+
+        // Si quedan intentos, esperar y reintentar
+        if (attempt < maxRetries) {
+          await new Promise(r => setTimeout(r, retryDelay * attempt));
+          continue;
+        }
+
+        throw new Error(MESSAGES.ERROR_CONNECTION);
       }
-
-      const data = await response.json();
-      const reply = data.choices?.[0]?.message?.content || MESSAGES.ERROR_UNKNOWN;
-      
-      // Agregar respuesta al historial
-      this.history.push({ 
-        role: 'assistant', 
-        content: reply 
-      });
-
-      return reply;
-
-    } catch (error) {
-      console.error('Chat API Error:', error);
-      
-      if (error.message === 'INVALID_API_KEY') {
-        throw new Error(MESSAGES.ERROR_NO_API_KEY);
-      }
-      
-      throw new Error(MESSAGES.ERROR_CONNECTION);
     }
   }
 
@@ -69,7 +78,7 @@ export class ChatAPI {
         temperature: CONFIG.TEMPERATURE,
         messages: [
           { role: 'system', content: SYSTEM_PROMPT },
-          ...this.history
+          ...this.history.slice(-6) // Solo los últimos 6 mensajes para no exceder el límite de tokens
         ]
       })
     });
