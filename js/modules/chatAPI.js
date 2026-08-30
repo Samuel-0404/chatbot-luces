@@ -48,12 +48,12 @@ export class ChatAPI {
     // Agregar mensaje del usuario al historial
     this.history.push({
       role: 'user',
-      content: userMessage 
+      content: userMessage
     });
 
     const maxRetries = 3;
     const retryDelay = 2000;
-    const fallbackReply = 'Eso no lo tengo claro todavía. Cuéntame qué ves exactamente en pantalla o qué paso hiciste, y te guío.';
+    const fallbackReply = 'Necesito que seas un poco mas explicito para poder ayudarte. Cuéntame qué ves exactamente en pantalla o qué paso hiciste, y te guío.';
 
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       try {
@@ -106,7 +106,7 @@ export class ChatAPI {
         temperature: CONFIG.TEMPERATURE,
         messages: [
           { role: 'system', content: SYSTEM_PROMPT },
-          ...this.history.slice(-6) // Solo los últimos 6 mensajes para no exceder el límite de tokens
+          ...this.history.slice(-16) // Solo los últimos 16 mensajes para no exceder el límite de tokens
         ]
       })
     });
