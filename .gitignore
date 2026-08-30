@@ -3,7 +3,6 @@
 
 # API Keys (no compartir)
 js/modules/env.js
-
 # System files
 .DS_Store
 Thumbs.db

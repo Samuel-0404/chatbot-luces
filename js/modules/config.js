@@ -1,8 +1,5 @@
 /**
  * DECOM - Configuration Module
- * Configuración centralizada de la aplicación
- */
-
 export const CONFIG = {
   // API Configuration
   GROQ_API_URL: 'https://api.groq.com/openai/v1/chat/completions',
