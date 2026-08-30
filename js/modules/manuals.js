@@ -93,10 +93,20 @@ PROBLEMA: OBS no conecta con YouTube (sin sincronización)
 
 PROBLEMA: Cámaras no responden al control remoto
 - Causa 1: Seguimiento automático encendido → SOLUCIÓN: presionar F2 en el control de la cámara
-- Causa 2: Cable de señal mal puesto → SOLUCIÓN: ajustar el cable en la parte posterior del control
+- Causa 2: Cable de señal mal puesto → SOLUCIÓN: reiniciar el control de las cámaras desde el switch de la parte del control.
 
 PROBLEMA: Cámaras no encienden o no dan señal
 - Causa: Interruptor de las cámaras apagado → SOLUCIÓN: verificar y encender el interruptor de las cámaras
+
+PROBLEMA: Cámara se queda pegado o congelado
+- SOLUCIÓN: Reiniciar la cámara de manera fisica desde el switch de la parte de atras de la cámara.
+- SOLUCIÓN 2: Si consideras que es un problema mas profundo, contacta al equipo de DECOM para que hagan un REBOOT de la cámara.
+
+PROBLEMA: La cámara del centro no muestra video
+- Causa 1: Las cámaras no están sincronizadas por prenderlas desde la sala de Decom → SOLUCIÓN: Apagar y prender las cámara del centro de manera fisica.
+
+PROBLEMA: El sonido suena doble en la transmisión.
+- Causa 1: La transimisión en facebook tiene el audio activado → SOLUCIÓN: Desactivar el audio de la pagina de facebook.
 `;
 
 export const MANUAL_PROYECCION = `
