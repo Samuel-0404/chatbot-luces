@@ -103,7 +103,7 @@ PROBLEMA: Cámara se queda pegado o congelado
 - SOLUCIÓN 2: Si consideras que es un problema mas profundo, contacta al equipo de DECOM para que hagan un REBOOT de la cámara.
 
 PROBLEMA: La cámara del centro no muestra video
-- Causa 1: Las cámaras no están sincronizadas por prenderlas desde la sala de Decom → SOLUCIÓN: Apagar y prender las cámara del centro de manera fisica.
+-SOLUCIÓN: Apagar y prender las cámara del centro de manera fisica.
 
 PROBLEMA: El sonido suena doble en la transmisión.
 - Causa 1: La transimisión en facebook tiene el audio activado → SOLUCIÓN: Desactivar el audio de la pagina de facebook.
