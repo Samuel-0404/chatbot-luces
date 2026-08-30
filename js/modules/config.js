@@ -32,9 +32,7 @@ export const MESSAGES = {
 };
 
 export const QUICK_REPLIES = [
-  '💡 Las luces no encienden',
-  '💡 ¿Cómo enciendo las luces paso a paso?',
-  '💡 No puedo crear una escena',
-  '📡 Problema con la transmisión',
-  '🎥 Problema con la proyección',
+  '💡 ¿Cómo puedo prender las luces?',
+  '🎥 Paso a paso de como iniciar transmión',
+  '🖥️ Problema con la proyección',
 ];

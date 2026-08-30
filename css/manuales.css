@@ -260,6 +260,15 @@
   background: rgba(240, 192, 96, 0.04);
 }
 
+.manual-card--sonido::before {
+  background: linear-gradient(90deg, var(--teal), #2dd4bf);
+}
+
+.manual-card--sonido.active {
+  border-color: rgba(13, 148, 136, 0.45);
+  background: rgba(13, 148, 136, 0.04);
+}
+
 /* ────────────────────────────────────────────────────────────────────────
    CARD CONTENT
 ──────────────────────────────────────────────────────────────────────── */
@@ -313,6 +322,13 @@
   box-shadow: 0 8px 24px rgba(240, 192, 96, 0.3),
               var(--shadow-glow-gold),
               inset 0 2px 8px rgba(240, 192, 96, 0.2);
+}
+
+.manual-card--sonido .manual-card__icon {
+  background: rgba(13, 148, 136, 0.2);
+  border: 2px solid rgba(13, 148, 136, 0.4);
+  box-shadow: 0 8px 24px rgba(13, 148, 136, 0.3),
+              inset 0 2px 8px rgba(13, 148, 136, 0.2);
 }
 
 .manual-card__title {
@@ -386,6 +402,14 @@
   border-color: rgba(124, 92, 255, 0.6);
   color: #b89aff;
   box-shadow: 0 4px 16px rgba(124, 92, 255, 0.3);
+}
+
+.manual-card--sonido.active .manual-card__btn,
+.manual-card--sonido:hover .manual-card__btn {
+  background: linear-gradient(135deg, rgba(13, 148, 136, 0.2), rgba(45, 212, 191, 0.2));
+  border-color: rgba(13, 148, 136, 0.6);
+  color: #2dd4bf;
+  box-shadow: 0 4px 16px rgba(13, 148, 136, 0.3);
 }
 
 /* ────────────────────────────────────────────────────────────────────────

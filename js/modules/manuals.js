@@ -152,6 +152,9 @@ Tres formas de buscar versículos:
 PLUGIN HOLYRICS (APOYO A TRANSMISIÓN):
 1. Ir a "Herramientas" (parte superior central) → "Plugin Holyrics"
 2. Clic en "Encender Servidor" — debe aparecer en verde cuando esté activo
+
+PROBLEMA: Pantalla distorsionada o de tamaño mas grande
+- Causa: Configuración de la resolución → SOLUCIÓN: Desconectar y conectar el cable HDMI
 `;
 
 export const SYSTEM_PROMPT = `Eres el asistente técnico del Departamento de Comunicaciones (DECOM) de la IPUC Central Cali. Ayudas a los voluntarios con tres áreas: Luces, Transmisión y Proyección.

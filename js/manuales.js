@@ -19,6 +19,11 @@ const manuals = {
     title: 'Manual de Luces',
     file: 'pdfs/manual-luces.pdf',
   },
+  sonido: {
+    icon: '🎧',
+    title: 'Manual de Sonido',
+    file: 'pdfs/manual-sonido.pdf',
+  },
 };
 
 let currentManual = null;

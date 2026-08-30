@@ -12,17 +12,48 @@ export class ChatAPI {
   }
 
   /**
+   * Respuestas locales para mensajes sociales simples (sin llamar a la API)
+   */
+  getLocalResponse(message) {
+    const msg = message.toLowerCase().trim();
+    const gracias = /^(muchas\s+)?gracias[.!]?$|^gracias\s+(hermano|hermana)[.!]?$/;
+    const ok = /^(ok|okay|perfecto|listo|entendido|claro|de\s+acuerdo|👍)[.!]?$/;
+    const hola = /^(hola|buenas|buenos\s+días|buenas\s+tardes|buenas\s+noches)[.!]?$/;
+
+    if (gracias.test(msg)) {
+      const respuestas = [
+        '¡Con gusto, hermano! Si necesitas algo más, aquí estoy. ¡Bendiciones!',
+        '¡De nada! Que Dios te ayude en el servicio. 🙏',
+        '¡Para eso estamos! Cualquier otra duda me avisas.',
+      ];
+      return respuestas[Math.floor(Math.random() * respuestas.length)];
+    }
+    if (ok.test(msg)) {
+      return '¡Perfecto! Si surge algo más, con gusto te ayudo.';
+    }
+    if (hola.test(msg)) {
+      return '¡Dios te bendiga, hermano! ¿En qué te puedo ayudar hoy?';
+    }
+    return null;
+  }
+
+  /**
    * Envía un mensaje a la API y retorna la respuesta
    */
   async sendMessage(userMessage) {
+    // Verificar si es un mensaje social simple (responder sin llamar a la API)
+    const localReply = this.getLocalResponse(userMessage);
+    if (localReply) return localReply;
+
     // Agregar mensaje del usuario al historial
-    this.history.push({ 
-      role: 'user', 
+    this.history.push({
+      role: 'user',
       content: userMessage 
     });
 
     const maxRetries = 3;
     const retryDelay = 2000;
+    const fallbackReply = 'Eso no lo tengo claro todavía. Cuéntame qué ves exactamente en pantalla o qué paso hiciste, y te guío.';
 
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       try {
@@ -39,7 +70,7 @@ export class ChatAPI {
         }
 
         const data = await response.json();
-        const reply = data.choices?.[0]?.message?.content || MESSAGES.ERROR_UNKNOWN;
+        const reply = data.choices?.[0]?.message?.content || fallbackReply;
 
         this.history.push({ role: 'assistant', content: reply });
         return reply;
@@ -57,7 +88,8 @@ export class ChatAPI {
           continue;
         }
 
-        throw new Error(MESSAGES.ERROR_CONNECTION);
+        this.history.push({ role: 'assistant', content: fallbackReply });
+        return fallbackReply;
       }
     }
   }
