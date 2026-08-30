@@ -3,11 +3,8 @@
  * Configuración centralizada de la aplicación
  */
 
-import { GROQ_API_KEY } from './env.js';
-
 export const CONFIG = {
   // API Configuration
-  GROQ_API_KEY: GROQ_API_KEY, // Definida en js/modules/env.js (no se sube a GitHub)
   GROQ_API_URL: 'https://api.groq.com/openai/v1/chat/completions',
   MODEL: 'llama-3.1-8b-instant',
   MAX_TOKENS: 800,
