@@ -6,7 +6,7 @@
 export const CONFIG = {
   // API Configuration
   GROQ_API_URL: 'https://api.groq.com/openai/v1/chat/completions',
-  MODEL: 'llama-3.3-70b-versatile',
+  MODEL: 'openai/gpt-oss-120b',
   MAX_TOKENS: 800,
   TEMPERATURE: 0.25,
 
