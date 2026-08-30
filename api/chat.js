@@ -3,7 +3,7 @@
  * Proxy seguro para la API de Groq — la key nunca llega al browser
  */
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // Solo aceptar POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
